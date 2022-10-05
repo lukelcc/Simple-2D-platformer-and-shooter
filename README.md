@@ -13,3 +13,5 @@ My addition:
 - Bullet Particle FX
 - Aiming crosshair
 - Death animation
+
+![image](image/2cb86f9ac10b5eee26126ea390b3bd20.png)
