@@ -19,5 +19,8 @@
   <li> Death Animations </li>
 </ol>
 
-![image](image/fae95ce50beb3ec098d77a14a01aeb3cebabfce3.gif)
 <p> AK-47 goes RATATATAT!!! Enemies explodes, Me Happy! </p>
+![image](image/fae95ce50beb3ec098d77a14a01aeb3cebabfce3.gif)
+
+<p> Death animations </p>
+![image](image/dismemberment.gif)
