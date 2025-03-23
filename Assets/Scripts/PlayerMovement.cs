@@ -12,11 +12,14 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float gravityScaleAtStart = 1f;
 
     private Vector2 moveInput;
- 
+
+    Shoot shooter;
+
     //colliders
     //boxCollider = feet
     //capsuleCollider = body
 
+   
 
     // Update is called once per frame
     void Update()

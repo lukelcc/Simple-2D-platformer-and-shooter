@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyMortality : MonoBehaviour
 {
     [Header("Health")]
-    [SerializeField] private int hp = 3;
+    [SerializeField] private int hp = 10;
 
     [Header("Death and dismemberment")]
     [SerializeField] List<GameObject> bodyPartsList;

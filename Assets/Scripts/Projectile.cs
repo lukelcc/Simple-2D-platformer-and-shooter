@@ -29,6 +29,10 @@ public class Projectile : MonoBehaviour
     {
         return projectileDamage;
     }
+    public void setProjectileDamage(int newDamage)
+    {
+        this.projectileDamage = newDamage;
+    }
 
     public void playBulletImpactFx()
     {
@@ -39,7 +43,9 @@ public class Projectile : MonoBehaviour
         }
     }
     private void OnCollisionEnter2D(Collision2D collision) 
-    {      
+    {
+        //if (collision.gameObject.GetComponent<Projectile>())//the bullet cannot hit another bullet
+        //    return;
         if (collision.gameObject.tag == "Enemy") //if bullet hit enemy
         {
             try
