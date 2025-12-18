@@ -24,6 +24,10 @@ public class Projectile : MonoBehaviour
     //{
     //    projectilePool.Release(this);
     //}
+    public enum gameObjectTag
+    {
+        Player
+    }
 
     public int getProjectileDamage()
     {
@@ -44,9 +48,9 @@ public class Projectile : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision) 
     {
-        //if (collision.gameObject.GetComponent<Projectile>())//the bullet cannot hit another bullet
-        //    return;
-        if (collision.gameObject.tag == "Enemy") //if bullet hit enemy
+        if (collision.gameObject.GetComponent<Projectile>())//the bullet cannot hit another bullet
+            return;
+        if (collision.gameObject.tag == "Enemy") //if bullet hit enemy goomba
         {
             try
             {
@@ -56,6 +60,10 @@ public class Projectile : MonoBehaviour
             {
                 Debug.Log(error.Message);
             }
+        }
+        if(collision.gameObject.tag.Equals(gameObjectTag.Player.ToString()))//if bullet hit other player
+        {
+            collision.gameObject.GetComponent<PlayerMortality>().MinusHp(projectileDamage);
         }
         projectilePool.Release(this);
         playBulletImpactFx();

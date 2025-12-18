@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float jumpSpeed = 10f;
     [SerializeField] float climbLadderSpeed = 5f;
     [SerializeField] float gravityScaleAtStart = 1f;
+    [SerializeField] float bouncingForce = 2f;
 
     private Vector2 moveInput;
 
@@ -19,7 +20,15 @@ public class PlayerMovement : MonoBehaviour
     //boxCollider = feet
     //capsuleCollider = body
 
-   
+
+
+    public enum gameObjectTag
+    {
+        Enemy,
+        Hazard,
+        Ladder,
+        Bouncing
+    }
 
     // Update is called once per frame
     void Update()
@@ -29,9 +38,14 @@ public class PlayerMovement : MonoBehaviour
         Run();
         FlipSprite();
         ClimbLadder();
+        //Bounce();
         //Die(); //class dead or alive
     }
 
+    private void Start()
+    {
+        
+    }
     //private void Die() //make class dead or alive - function
     //{
     //    if (GetComponent<CapsuleCollider2D>().IsTouchingLayers(LayerMask.GetMask("Enemy", "Hazard")))
@@ -58,7 +72,7 @@ public class PlayerMovement : MonoBehaviour
 
     //}
 
-    
+
 
     void OnMove(InputValue value) // getting WSAD key input from user
     {
@@ -81,6 +95,7 @@ public class PlayerMovement : MonoBehaviour
             GetComponent<Rigidbody2D>().velocity += new Vector2(0f, jumpSpeed);
         }
     }
+
 
     void Run()
     {
@@ -110,7 +125,7 @@ public class PlayerMovement : MonoBehaviour
     private void ClimbLadder()
     {
         //only can climb when player touches ladder
-        if (!GetComponent<BoxCollider2D>().IsTouchingLayers(LayerMask.GetMask("Ladder")))
+        if (!GetComponent<BoxCollider2D>().IsTouchingLayers(LayerMask.GetMask(gameObjectTag.Ladder.ToString())))
         {
             //if not climbing, gravity maintain the same
             GetComponent<Rigidbody2D>().gravityScale = gravityScaleAtStart;
@@ -129,4 +144,19 @@ public class PlayerMovement : MonoBehaviour
         GetComponent<Animator>().SetBool("isClimbing", playerHasVerticalSpeedWhenClimbing);
 
     }
+
+    private void Bounce()
+    {
+        //GetComponent<Rigidbody2D>().AddForce(bouncingForce*Vector2.up, ForceMode2D.Impulse);
+        GetComponent<Rigidbody2D>().velocity = new Vector2(0, bouncingForce);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (GetComponent<BoxCollider2D>().IsTouchingLayers(LayerMask.GetMask(gameObjectTag.Bouncing.ToString())))
+        {
+            Bounce();
+        }
+    }
+
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using TMPro;
 
 public class PlayerHpPresenter : MonoBehaviour
@@ -15,7 +16,7 @@ public class PlayerHpPresenter : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GetComponent<GameSession>().onHpChange += UpdateUI;
+        GetComponent<GameSession>().onLifeChange += UpdateUI;
         //gameSession.onHpChange += UpdateUI;
         UpdateUI();
     }
@@ -23,7 +24,7 @@ public class PlayerHpPresenter : MonoBehaviour
     // Update is called once per frame
     void UpdateUI()
     {
-        PlayerHpText.text = GetComponent<GameSession>().getRemainingHp().ToString();
+        //PlayerHpText.text = GetComponent<GameSession>().getRemainingLife().ToString();
         //PlayerHpText.text = gameSession.getRemainingHp().ToString();
     }
 }

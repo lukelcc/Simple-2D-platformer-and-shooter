@@ -10,17 +10,44 @@ public class PlayerAim : MonoBehaviour
 
     [SerializeField] GameObject ObjectsToRotate;
 
+    //controller aim
+    //[SerializeField] public GameObject crosshair;
+    private Vector2 aimDirection;
+
+
+
     private void Awake()
     {
         //aimOrigin = transform.Find("HeadAndGun");
         aimOrigin = ObjectsToRotate.transform;
     }
 
+    private void Start()
+    {
+        
+    }
+
+    public Vector2 getAimDirection()
+    {
+        return aimDirection;
+    }
+
+
+    void OnAim(InputValue value) // getting controller aim stick direction
+    {
+        if(value.Get<Vector2>() != Vector2.zero)//dont include stick move back
+            aimDirection = value.Get<Vector2>();
+    }
+
     private void Aim()
     {
-        mouseCursorPos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+        //mouse aiming
+        //mouseCursorPos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());        
+        //Vector3 aimDirection = (mouseCursorPos - transform.position).normalized;
 
-        Vector3 aimDirection = (mouseCursorPos - transform.position).normalized;
+        if (aimDirection == Vector2.zero)
+            return;
+      
         float angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
         aimOrigin.eulerAngles = new Vector3(0, 0, angle);
 
@@ -36,6 +63,13 @@ public class PlayerAim : MonoBehaviour
         }
         aimOrigin.localScale = aimLocalScale;
     }
+
+    //aim using controller
+    //private void Aim()
+    //{
+    //    crosshair.transform.localPosition=movement
+    //}
+
 
     private void Update()
     {

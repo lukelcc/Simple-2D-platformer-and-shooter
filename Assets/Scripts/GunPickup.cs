@@ -70,9 +70,10 @@ public class GunPickup : MonoBehaviour
         FindObjectOfType<Shoot>().projectileSpeed = projectileSpeed;
         FindObjectOfType<Shoot>().fullAutoMode = isFullAuto;
         FindObjectOfType<Shoot>().damage = damage;
-        FindObjectOfType<Shoot>().magSize = magSize;
+        FindObjectOfType<Shoot>().ammoLeft = magSize;
         FindObjectOfType<Shoot>().spread = spread;
         FindObjectOfType<Shoot>().bulletsPerShot = bulletsPerShot;
+        FindObjectOfType<Shoot>().isBurst = isBurst;
         Debug.Log("Picked up: "+modelName);
         GetComponent<BoxCollider2D>().enabled = false;
     }

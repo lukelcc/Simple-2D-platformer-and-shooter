@@ -9,56 +9,75 @@ public class GameSession : MonoBehaviour
 {
     [SerializeField] int levelResetDelay = 2;
 
-    private int remainingHp;
+    //private int remainingLife;
 
-    public event Action onHpChange;
+    public event Action onLifeChange;
 
 
     private void Awake()//singleton for gamesession
     {
+        
         int numGameSessions = FindObjectsOfType<GameSession>().Length;
-        if (numGameSessions > 1)
+        if (numGameSessions > 1) //restart level
         {            
             Debug.Log("destroy old game session and create another");            
             Destroy(gameObject);
         }
-        else
+        else //restart game
         {
-            remainingHp = FindObjectOfType<PlayerMortality>().GetStartingHealth();
-            Debug.Log("reset health to: " + remainingHp);
+            //remainingLife = FindObjectOfType<PlayerMortality>().GetStartingLife();
+            //Debug.Log("reset health to: " + remainingLife);
             Debug.Log("create new game session");//when 1st time startup
             DontDestroyOnLoad(gameObject);
         }
     }
 
-    public int getRemainingHp()
+    
+    //public int getRemainingLife()
+    //{
+    //    return remainingLife;
+    //}
+    //public void MinusLife()
+    //{
+    //    remainingLife--;
+    //    if (onLifeChange != null)
+    //    {
+    //        onLifeChange();
+    //    }
+    //    if (remainingLife > 0) 
+    //    {
+    //        Debug.Log("level resetting");
+    //        Debug.Log("remaining health: " + remainingLife);
+    //        StartCoroutine(ResetLevelCoroutine());
+    //    }
+    //    else 
+    //    {
+    //        Debug.Log("game resetting, back to level 1");
+    //        StartCoroutine(ResetGameCoroutine());
+    //    }
+    //}
+
+    public void ResetLevel()
     {
-        return remainingHp;
+        Debug.Log("level resetting");
+        StartCoroutine(ResetLevelCoroutine());       
     }
-    public void MinusHp()
+
+    public void ResetGame()
     {
-        remainingHp--;
-        if (onHpChange != null)
-        {
-            onHpChange();
-        }
-        if (remainingHp > 0) 
-        {
-            Debug.Log("level resetting");
-            Debug.Log("remaining health: " + remainingHp);
-            StartCoroutine(ResetLevelCoroutine());
-        }
-        else 
-        {
-            Debug.Log("game resetting, back to level 1");
-            StartCoroutine(ResetGameCoroutine());
-        }
+        Debug.Log("game resetting");
+        StartCoroutine(ResetGameCoroutine());
     }
 
     IEnumerator ResetLevelCoroutine()
     {
         yield return new WaitForSeconds(levelResetDelay);
-        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;       
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+
+        //remove all player UI hud.
+        gameObject.transform.GetChild(0).GetChild(0).gameObject.SetActive(false);
+        gameObject.transform.GetChild(0).GetChild(1).gameObject.SetActive(false);
+
         SceneManager.LoadScene(currentSceneIndex);
     }
 

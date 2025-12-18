@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2770259827523084156
+--- !u!1 &58751262263892118
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,29 +8,82 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3560672295582485391}
+  - component: {fileID: 6799680155114284897}
+  - component: {fileID: 1747627553795929576}
   m_Layer: 8
-  m_Name: ProjectileSpawnPoint
+  m_Name: Muzzle flash
   m_TagString: Untagged
-  m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3560672295582485391
+--- !u!4 &6799680155114284897
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2770259827523084156}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.335001, y: 0, z: 0}
+  m_GameObject: {fileID: 58751262263892118}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5113737446474233688}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &1747627553795929576
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 58751262263892118}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 7726689
+  m_SortingLayer: 8
+  m_SortingOrder: 2
+  m_Sprite: {fileID: 21300000, guid: a86599885a5660548b1893a2de72db0b, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1.0625, y: 0.9375}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
 --- !u!1 &4809867026096996353
 GameObject:
   m_ObjectHideFlags: 0
@@ -163,8 +216,8 @@ GameObject:
   - component: {fileID: 4600359002220340288}
   - component: {fileID: 2580041291669462440}
   - component: {fileID: 1588455278789777933}
-  - component: {fileID: 3163798400021571625}
   - component: {fileID: 1325947617389710758}
+  - component: {fileID: 1139734376006707584}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -180,7 +233,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5918663808058300001}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 18.24, y: 9.35, z: -4.743511}
+  m_LocalPosition: {x: 28.26, y: 0.08, z: -4.743511}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -270,7 +323,7 @@ CapsuleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 6200000, guid: 367e9b37c1ea1e642bdd4707d6345197, type: 2}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.0011966228, y: -0.015167356}
@@ -347,9 +400,73 @@ MonoBehaviour:
   m_ControlsChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-  m_ActionEvents: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 1146a4ce-a809-43e0-9ddf-22ae1495b405
+    m_ActionName: Player/Move[/XInputControllerWindows/leftStick,/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow,/XInputControllerWindows/dpad]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 1189fd12-3bcc-4ea4-9b36-35b4db8556db
+    m_ActionName: Player/Look[/XInputControllerWindows/rightStick,/Mouse/delta]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 06399e33-2149-4c7f-bea7-5c5576a779b3
+    m_ActionName: Player/Fire[/Mouse/leftButton,/XInputControllerWindows/rightTrigger]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 902a766d-aed1-4b17-ac7c-4782af794e4b
+    m_ActionName: Player/Jump[/Keyboard/space,/XInputControllerWindows/buttonSouth,/XInputControllerWindows/leftShoulder,/XInputControllerWindows/leftTrigger]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c70411b5-ae81-49b4-bbe3-b4a61176cf7b
+    m_ActionName: Player/PickUp[/Keyboard/f,/XInputControllerWindows/buttonWest,/XInputControllerWindows/rightShoulder]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 16e9a7bc-c1a1-46cd-8ea0-601a796dbbd1
+    m_ActionName: Player/Aim[/XInputControllerWindows/rightStick]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 4d3213c9-57b1-4754-a0aa-c96882ed9b1c
+    m_ActionName: UI/Navigate[/XInputControllerWindows/leftStick/up,/XInputControllerWindows/rightStick/up,/XInputControllerWindows/leftStick/down,/XInputControllerWindows/rightStick/down,/XInputControllerWindows/leftStick/left,/XInputControllerWindows/rightStick/left,/XInputControllerWindows/leftStick/right,/XInputControllerWindows/rightStick/right,/XInputControllerWindows/dpad,/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 9606ad04-14e8-4a28-9d89-7fd7b1ceb468
+    m_ActionName: UI/Submit[/Keyboard/enter,/XInputControllerWindows/buttonSouth]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 662f29d9-1345-40ae-af4a-5485749943f0
+    m_ActionName: UI/Cancel[/Keyboard/escape,/XInputControllerWindows/buttonEast]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 6ab71a87-0085-41f9-98a0-5129be295c55
+    m_ActionName: UI/Point[/Mouse/position]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: fa727c5f-fc01-4be5-ad26-20c818c1025f
+    m_ActionName: UI/Click[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 6cc22f3d-a23f-47cd-a796-b4175b0d9767
+    m_ActionName: UI/ScrollWheel[/Mouse/scroll]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f1095f16-973b-4f4c-b908-36b304116a44
+    m_ActionName: UI/MiddleClick[/Mouse/middleButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a40fd4dc-8e54-4ea0-a7b8-84ab4112b3a6
+    m_ActionName: UI/RightClick[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a47c20da-d165-4c0f-acd2-82355d935dd1
+    m_ActionName: UI/TrackedDevicePosition
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 21864ade-4dad-4793-bab1-1ad31c06c28d
+    m_ActionName: UI/TrackedDeviceOrientation
   m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
+  m_DefaultControlScheme: Gamepad
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
@@ -369,6 +486,7 @@ MonoBehaviour:
   jumpSpeed: 12
   climbLadderSpeed: 5
   gravityScaleAtStart: 1
+  bouncingForce: 20
 --- !u!114 &1588455278789777933
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -382,28 +500,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ObjectsToRotate: {fileID: 6793246793280021366}
---- !u!114 &3163798400021571625
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5918663808058300001}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ca5809e3e6956e04ea1b872926590cf5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  firePoint: {fileID: 3560672295582485391}
-  ProjectilePrefab: {fileID: 8523352496917372587, guid: 12f5f67dfa99dc4409689597ec15cd13, type: 3}
-  maxProjectilePoolSize: 50
-  projectileSpeed: 20
-  shootSound: {fileID: 0}
-  shootSoundVolume: 0.25
-  fullAutoMode: 0
-  firingRate: 1
-  haveGun: 0
-  isFiringPressed: 0
 --- !u!114 &1325947617389710758
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -416,7 +512,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3be901ab437693f4f9df6f310c93f168, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  strartingHp: 3
+  startingLife: 3
+  maxHp: 20
+  HpBar: {fileID: 0}
+  injuredSpriteColorPeriod: 0.1
+  controlDisablePeriod: 1
+  knockBackForce: 20
   bodyPartsList:
   - {fileID: 5102813124936218203, guid: 123d4c9b4d1e7db4c8f71644e0a98f5b, type: 3}
   - {fileID: 3382646677620604879, guid: 0395490a93d5351468ca3477066194f0, type: 3}
@@ -424,6 +525,44 @@ MonoBehaviour:
   - {fileID: 6342707542303156441, guid: c29a78a68a8ca084ca348218fe8e8905, type: 3}
   yeetForce: 2
   rotatingSpeed: 0.2
+--- !u!114 &1139734376006707584
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5918663808058300001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca5809e3e6956e04ea1b872926590cf5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ProjectilePrefab: {fileID: 8523352496917372587, guid: 63cf197a36d449f469d41320bd164d71, type: 3}
+  maxProjectilePoolSize: 50
+  modelName: 
+  firePoint: {fileID: 2505253781732317019}
+  firingRate: 1
+  projectileSpeed: 20
+  bigBullet: 0
+  damage: 1
+  ammoLeft: 0
+  magSize: 0
+  spread: 30
+  bulletsPerShot: 1
+  fullAutoMode: 0
+  isBurst: 0
+  burstFiringRate: 0.05
+  gunShotSFX: {fileID: 0}
+  gunShotSFXVol: 0.7
+  gunCockSFX: {fileID: 0}
+  gunCockSFXVol: 0.7
+  muzzleFlash: {fileID: 58751262263892118}
+  NumFramesToFlash: 7
+  haveGun: 0
+  onCooldown: 0
+  withinPickupRange: 0
+  weaponWithinPickupRange: {fileID: 0}
+  pickeupFireDelay: 0.8
 --- !u!1 &6793246793280021366
 GameObject:
   m_ObjectHideFlags: 0
@@ -454,7 +593,8 @@ Transform:
   m_Children:
   - {fileID: 8595332826768451436}
   - {fileID: 8915859395200490177}
-  - {fileID: 3560672295582485391}
+  - {fileID: 2505253781732317019}
+  - {fileID: 6799680155114284897}
   m_Father: {fileID: 2508254616467917262}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -483,7 +623,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7271019826882143029}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.222, y: -0.12, z: 0}
+  m_LocalPosition: {x: 0.222, y: -0.04, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -543,3 +683,34 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &7501440492542322726
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2505253781732317019}
+  m_Layer: 8
+  m_Name: ProjectileSpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2505253781732317019
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7501440492542322726}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.46, y: 0.09, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5113737446474233688}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
