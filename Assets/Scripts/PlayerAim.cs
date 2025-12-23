@@ -42,8 +42,9 @@ public class PlayerAim : MonoBehaviour
     private void Aim()
     {
         //mouse aiming
-        //mouseCursorPos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());        
-        //Vector3 aimDirection = (mouseCursorPos - transform.position).normalized;
+        //mouseCursorPos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue()); //edit       
+        //Vector3 aimDirection = (mouseCursorPos - transform.position).normalized; //edit
+        //aimDirection = (mouseCursorPos - transform.position).normalized; //edit
 
         if (aimDirection == Vector2.zero)
             return;

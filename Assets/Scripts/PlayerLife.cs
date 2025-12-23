@@ -35,11 +35,14 @@ public class PlayerLife : MonoBehaviour
         {
             onLifeChange();
         }
+       // if (FindObjectsOfType<PlayerMortality>().Length)
+
         if (remainingLife > 0)
         {
             Debug.Log("level resetting");
             Debug.Log("remaining health: " + remainingLife);
-            FindObjectOfType<GameSession>().ResetLevel();
+            //Debug.Log("num remaining players: " + FindObjectsOfType<PlayerMortality>().Length);
+            //FindObjectOfType<GameSession>().ResetLevel();//edit
         }
         else
         {

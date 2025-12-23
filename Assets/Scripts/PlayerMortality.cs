@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+//using static UnityEngine.InputSystem.PlayerInputManager;
 
 public class PlayerMortality : MonoBehaviour
 {
@@ -23,7 +24,9 @@ public class PlayerMortality : MonoBehaviour
 
     GameObject playerUIObject;
     Color originaSpriteColor;
+    //PlayerInputManager playerInputManager;
 
+    int lastFrame = 0;
     private void Start()
     {
         currentHp = maxHp;
@@ -80,7 +83,12 @@ public class PlayerMortality : MonoBehaviour
         //HpBar.SetHp(currentHp);
         playerUIObject.GetComponentInChildren<HealthBar>().SetHp(currentHp);
         if (currentHp <= 0)
-            Die();
+            if (Time.frameCount > lastFrame)
+            {
+                lastFrame = Time.frameCount;
+                Die();
+            }
+                
     }
     //private void OnCollisionEnter2D(Collision2D collision) // when player get hurt by enemies/hazards
     //{
@@ -146,25 +154,29 @@ public class PlayerMortality : MonoBehaviour
     public void Die()
     {
         //FindObjectOfType<PlayerLife>().MinusLife();
-        
-        playerUIObject.SetActive(false);playerUIObject.GetComponent<PlayerLife>().MinusLife();
+        //playerInputManager.DisableJoining();
+        playerUIObject.SetActive(false);
+        playerUIObject.GetComponent<PlayerLife>().MinusLife();
         //FindObjectOfType<PlayerStats>().resetWeaponAndAmmo();
         //reset the UI stats
         playerUIObject.GetComponent<PlayerStats>().resetWeaponAndAmmo();
         playerUIObject.GetComponentInChildren<HealthBar>().SetMaxHp(maxHp);
         playerUIObject.SetActive(false);
         Dismemberment();
+        Debug.Log("Die");
     }
 
     private void Dismemberment()
     {
         Destroy(gameObject);
+        //gameObject.SetActive(false);
 
         Transform firePoint = GetComponent<Transform>().transform;
 
 
         for (int bodyPartsIndex = 0; bodyPartsIndex < bodyPartsList.Count; bodyPartsIndex++)
         {
+            //Debug.Log("parts:" + bodyPartsIndex);
             GameObject flyingBodyParts = Instantiate(bodyPartsList[bodyPartsIndex], firePoint.position, firePoint.rotation);
             flyingBodyParts.GetComponent<SpriteRenderer>().color = originaSpriteColor;
             Rigidbody2D rb = flyingBodyParts.GetComponent<Rigidbody2D>();

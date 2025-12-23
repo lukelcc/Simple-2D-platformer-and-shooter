@@ -73,7 +73,8 @@ public class Shoot : MonoBehaviour
     public enum gameObjectName
     {
         P1,
-        P2
+        P2,
+        P3
     }
 
 
@@ -104,6 +105,10 @@ public class Shoot : MonoBehaviour
         {
             playerUIObject = FindObjectOfType<GameSession>().gameObject.transform.GetChild(0).GetChild(1).gameObject;
         }
+        else if (GetComponent<PlayerInput>().playerIndex == 2)
+        {
+            playerUIObject = FindObjectOfType<GameSession>().gameObject.transform.GetChild(0).GetChild(2).gameObject;
+        }
 
         //to avoid multiple controller conflict 
         var playerInput = GetComponent<PlayerInput>();
@@ -133,15 +138,17 @@ public class Shoot : MonoBehaviour
     {
         if (!haveGun||ammoLeft <= 0)//check if got gun and ammo
         {
-            Debug.Log("No gun/ammo!");
+            //Debug.Log("No gun/ammo!");
             return;
         }
-        else if (currentGamepad.rightTrigger.isPressed && firingCoroutine == null && !onCooldown)
+        //else if (currentGamepad.rightTrigger.isPressed && firingCoroutine == null && !onCooldown)
+        else if ((currentGamepad.leftTrigger.isPressed|| currentGamepad.rightTrigger.isPressed) && firingCoroutine == null && !onCooldown)
         //else if (Mouse.current.leftButton.isPressed && firingCoroutine == null && !onCooldown)
         {
             firingCoroutine = StartCoroutine(FireContinouosly());           
         }
-        else if (!currentGamepad.rightTrigger.isPressed && firingCoroutine != null || ammoLeft <= 0)
+        //else if (!currentGamepad.rightTrigger.isPressed && firingCoroutine != null || ammoLeft <= 0)
+        else if ((!currentGamepad.leftTrigger.isPressed|| !currentGamepad.rightTrigger.isPressed) && firingCoroutine != null || ammoLeft <= 0)
         //else if (!Mouse.current.leftButton.isPressed && firingCoroutine != null || ammoLeft <= 0)
         {
             StopCoroutine(firingCoroutine);
@@ -320,9 +327,10 @@ public class Shoot : MonoBehaviour
         }
     }
 
-    void OnPickUp(InputValue value)//Press F to pickup
+    void OnPickUp(InputValue value)//Press F to pickup/pickup button on controller
     {
-        if (withinPickupRange && !Mouse.current.leftButton.isPressed && !onCooldown) //cannot pickup when existing weapon is firing
+        //if (withinPickupRange && !Mouse.current.leftButton.isPressed && !onCooldown) //cannot pickup when existing weapon is firing
+        if (withinPickupRange && !onCooldown) //cannot pickup when existing weapon is firing //edit
         {
             StartCoroutine(PickupFireCoolDown());
             weaponWithinPickupRange.GetComponent<GunFireMode>().pickUpWeapon(GetComponent<Transform>());//update weapon stats

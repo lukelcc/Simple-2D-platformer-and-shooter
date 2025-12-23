@@ -77,6 +77,7 @@ public class GameSession : MonoBehaviour
         //remove all player UI hud.
         gameObject.transform.GetChild(0).GetChild(0).gameObject.SetActive(false);
         gameObject.transform.GetChild(0).GetChild(1).gameObject.SetActive(false);
+        gameObject.transform.GetChild(0).GetChild(2).gameObject.SetActive(false);
 
         SceneManager.LoadScene(currentSceneIndex);
     }
