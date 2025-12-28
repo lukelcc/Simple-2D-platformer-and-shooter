@@ -1,27 +1,23 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &997502763714857268
+--- !u!1001 &6910168255566593731
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1325947617389710758, guid: ea144ad7c5c7fcf41b4ccbe210766777, type: 3}
-      propertyPath: maxHp
-      value: 20
-      objectReference: {fileID: 0}
     - target: {fileID: 2508254616467917262, guid: ea144ad7c5c7fcf41b4ccbe210766777, type: 3}
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2508254616467917262, guid: ea144ad7c5c7fcf41b4ccbe210766777, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 26.92
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2508254616467917262, guid: ea144ad7c5c7fcf41b4ccbe210766777, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.361578
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2508254616467917262, guid: ea144ad7c5c7fcf41b4ccbe210766777, type: 3}
       propertyPath: m_LocalPosition.z
@@ -57,11 +53,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2771174843269908527, guid: ea144ad7c5c7fcf41b4ccbe210766777, type: 3}
       propertyPath: m_Color.b
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2771174843269908527, guid: ea144ad7c5c7fcf41b4ccbe210766777, type: 3}
       propertyPath: m_Color.g
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2771174843269908527, guid: ea144ad7c5c7fcf41b4ccbe210766777, type: 3}
       propertyPath: m_Color.r
@@ -69,11 +65,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4288014494846882971, guid: ea144ad7c5c7fcf41b4ccbe210766777, type: 3}
       propertyPath: m_Color.b
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4288014494846882971, guid: ea144ad7c5c7fcf41b4ccbe210766777, type: 3}
       propertyPath: m_Color.g
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4288014494846882971, guid: ea144ad7c5c7fcf41b4ccbe210766777, type: 3}
       propertyPath: m_Color.r
@@ -81,7 +77,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5918663808058300001, guid: ea144ad7c5c7fcf41b4ccbe210766777, type: 3}
       propertyPath: m_Name
-      value: Player 2
+      value: Player 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ea144ad7c5c7fcf41b4ccbe210766777, type: 3}

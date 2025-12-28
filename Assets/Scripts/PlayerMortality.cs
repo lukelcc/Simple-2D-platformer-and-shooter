@@ -14,7 +14,7 @@ public class PlayerMortality : MonoBehaviour
 
     [Header("Injured")]
     [SerializeField] private float injuredSpriteColorPeriod = .1f;
-    [SerializeField] private float controlDisablePeriod = 1f;
+    [SerializeField] private float controlDisablePeriod = 3f;
     [SerializeField] private float knockBackForce = 20f;
 
     [Header("Death and dismemberment")]
@@ -47,13 +47,19 @@ public class PlayerMortality : MonoBehaviour
         else if (GetComponent<PlayerInput>().playerIndex == 2)//P3
         {
             playerUIObject = FindObjectOfType<GameSession>().gameObject.transform.GetChild(0).GetChild(2).gameObject;
-            originaSpriteColor = Color.cyan;
+            originaSpriteColor = Color.blue;
+        }
+        else if (GetComponent<PlayerInput>().playerIndex == 3)//P4
+        {
+            playerUIObject = FindObjectOfType<GameSession>().gameObject.transform.GetChild(0).GetChild(3).gameObject;
+            originaSpriteColor = Color.black;
         }
         playerUIObject.SetActive(true);
         GetComponent<SpriteRenderer>().color = originaSpriteColor;
         gameObject.transform.GetChild(0).GetChild(0).GetComponent<SpriteRenderer>().color = originaSpriteColor;//P1
         gameObject.transform.GetChild(0).GetChild(1).GetComponent<SpriteRenderer>().color = originaSpriteColor;//P2
         gameObject.transform.GetChild(0).GetChild(2).GetComponent<SpriteRenderer>().color = originaSpriteColor;//P3
+        gameObject.transform.GetChild(0).GetChild(3).GetComponent<SpriteRenderer>().color = originaSpriteColor;//P4
         //HpBar.SetMaxHp(maxHp);
         //initialize hp bar to full hlp
         playerUIObject.GetComponentInChildren<HealthBar>().SetMaxHp(maxHp);
@@ -158,12 +164,14 @@ public class PlayerMortality : MonoBehaviour
         playerUIObject.SetActive(false);
         playerUIObject.GetComponent<PlayerLife>().MinusLife();
         //FindObjectOfType<PlayerStats>().resetWeaponAndAmmo();
+
         //reset the UI stats
-        playerUIObject.GetComponent<PlayerStats>().resetWeaponAndAmmo();
+        playerUIObject.GetComponent<PlayerStats>().resetWeaponAndAmmo();//edit
         playerUIObject.GetComponentInChildren<HealthBar>().SetMaxHp(maxHp);
         playerUIObject.SetActive(false);
+        //StartCoroutine(TemporaryDisablePlayerMovementAndVisibility());
         Dismemberment();
-        Debug.Log("Die");
+        Debug.Log("Player: " + gameObject.name + " died");
     }
 
     private void Dismemberment()
@@ -186,4 +194,62 @@ public class PlayerMortality : MonoBehaviour
             rb.AddTorque(rotatingSpeed, ForceMode2D.Impulse);
         }
     }
+
+    private IEnumerator TemporaryDisablePlayerMovementAndVisibility()//Player die, temporary disabled, reset health//edit
+    {
+
+        //disable player controls
+        //GetComponent<PlayerMovement>().enabled = false;
+        GetComponent<PlayerInput>().DeactivateInput();
+
+        //loss all ammo and gun
+        //GetComponent<Shoot>().ammoLeft = 0;
+        transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<SpriteRenderer>().enabled = false;//disable gun sprite renderer
+
+
+        //disable sprite renderer
+        gameObject.GetComponent<SpriteRenderer>().enabled=false;      
+        transform.GetChild(0).GetChild(0).GetComponent<SpriteRenderer>().enabled = false;//head
+        transform.GetChild(0).GetChild(1).GetComponent<SpriteRenderer>().enabled = false;//grip
+
+        //disable collider
+        gameObject.GetComponent<CapsuleCollider2D>().enabled = false;
+        gameObject.GetComponent<BoxCollider2D>().enabled = false;
+
+        //disable rigid body
+        gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+        gameObject.GetComponent<Rigidbody2D>().simulated = false;
+
+        //destroy gun
+        //Destroy(transform.GetChild(0).GetChild(1).GetChild(0).gameObject);
+
+        //GetComponent<SpriteRenderer>().color = Color.red;
+
+        yield return new WaitForSeconds(controlDisablePeriod);
+
+        //GetComponent<PlayerMovement>().enabled = true;
+        //enable sprite renderer
+        gameObject.GetComponent<SpriteRenderer>().enabled = true;
+        transform.GetChild(0).GetChild(0).GetComponent<SpriteRenderer>().enabled = true;//head
+        transform.GetChild(0).GetChild(1).GetComponent<SpriteRenderer>().enabled = true;//grip
+
+        //enable collider
+        gameObject.GetComponent<CapsuleCollider2D>().enabled = true;
+        gameObject.GetComponent<BoxCollider2D>().enabled = true;
+
+        //enable rigid body
+        gameObject.GetComponent<Rigidbody2D>().simulated = true;
+
+        //enable player controls
+        GetComponent<PlayerInput>().ActivateInput();
+
+        playerUIObject.SetActive(true);
+
+        //loss all ammo and gun
+        //GetComponent<Shoot>().ammoLeft = 0;
+        transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<SpriteRenderer>().enabled = true;//enable gun sprite renderer
+
+        currentHp = maxHp;
+    }
+
 }

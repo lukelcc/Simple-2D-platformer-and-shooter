@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerLife : MonoBehaviour
 {
@@ -29,7 +30,7 @@ public class PlayerLife : MonoBehaviour
         return remainingLife;
     }
     public void MinusLife()
-    {
+    {       
         remainingLife--;
         if (onLifeChange != null)
         {
@@ -38,11 +39,10 @@ public class PlayerLife : MonoBehaviour
        // if (FindObjectsOfType<PlayerMortality>().Length)
 
         if (remainingLife > 0)
-        {
-            Debug.Log("level resetting");
-            Debug.Log("remaining health: " + remainingLife);
+        {          
+            Debug.Log("remaining health: " + remainingLife);          
             //Debug.Log("num remaining players: " + FindObjectsOfType<PlayerMortality>().Length);
-            //FindObjectOfType<GameSession>().ResetLevel();//edit
+            FindObjectOfType<GameSession>().PlayerDeath();//edit            
         }
         else
         {

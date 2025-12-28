@@ -512,11 +512,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3be901ab437693f4f9df6f310c93f168, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingLife: 50
+  startingLife: 10
   maxHp: 20
   HpBar: {fileID: 0}
   injuredSpriteColorPeriod: 0.1
-  controlDisablePeriod: 1
+  controlDisablePeriod: 3
   knockBackForce: 20
   bodyPartsList:
   - {fileID: 5102813124936218203, guid: 123d4c9b4d1e7db4c8f71644e0a98f5b, type: 3}

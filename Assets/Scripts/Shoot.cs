@@ -60,6 +60,7 @@ public class Shoot : MonoBehaviour
 
     //so that only one controller is read
     private Gamepad currentGamepad;
+    private Mouse currentMouse;
 
     GameObject playerUIObject;
 
@@ -74,7 +75,8 @@ public class Shoot : MonoBehaviour
     {
         P1,
         P2,
-        P3
+        P3,
+        P4
     }
 
 
@@ -109,6 +111,10 @@ public class Shoot : MonoBehaviour
         {
             playerUIObject = FindObjectOfType<GameSession>().gameObject.transform.GetChild(0).GetChild(2).gameObject;
         }
+        else if (GetComponent<PlayerInput>().playerIndex == 3)
+        {
+            playerUIObject = FindObjectOfType<GameSession>().gameObject.transform.GetChild(0).GetChild(3).gameObject;
+        }
 
         //to avoid multiple controller conflict 
         var playerInput = GetComponent<PlayerInput>();
@@ -121,6 +127,12 @@ public class Shoot : MonoBehaviour
                     currentGamepad = gamepad;
                     break;
                 }
+                if (device is Mouse mouse)//edit
+                {
+                    currentMouse = mouse;
+                    Debug.Log("Mouse");
+                    break;
+                }//end edit
             }
         }
 
@@ -130,8 +142,7 @@ public class Shoot : MonoBehaviour
     private void Update()
     {
         if (fullAutoMode)
-            FireFullAuto();
-
+            FireFullAuto();       
     }
 
     private void FireFullAuto()//fire full-auto starts here
@@ -141,14 +152,28 @@ public class Shoot : MonoBehaviour
             //Debug.Log("No gun/ammo!");
             return;
         }
+
+        //mouse input
+        else if (currentMouse != null)//edit    
+        {
+            if (Mouse.current.leftButton.isPressed && firingCoroutine == null && !onCooldown)
+            {
+                firingCoroutine = StartCoroutine(FireContinouosly());
+            }
+            else if (!Mouse.current.leftButton.isPressed && firingCoroutine != null || ammoLeft <= 0)
+            {
+                StopCoroutine(firingCoroutine);
+                firingCoroutine = null;
+            }
+        }
         //else if (currentGamepad.rightTrigger.isPressed && firingCoroutine == null && !onCooldown)
-        else if ((currentGamepad.leftTrigger.isPressed|| currentGamepad.rightTrigger.isPressed) && firingCoroutine == null && !onCooldown)
+        else if (( currentGamepad.leftTrigger.isPressed|| currentGamepad.rightTrigger.isPressed) && firingCoroutine == null && !onCooldown)
         //else if (Mouse.current.leftButton.isPressed && firingCoroutine == null && !onCooldown)
         {
             firingCoroutine = StartCoroutine(FireContinouosly());           
         }
         //else if (!currentGamepad.rightTrigger.isPressed && firingCoroutine != null || ammoLeft <= 0)
-        else if ((!currentGamepad.leftTrigger.isPressed|| !currentGamepad.rightTrigger.isPressed) && firingCoroutine != null || ammoLeft <= 0)
+        else if (( !currentGamepad.leftTrigger.isPressed|| !currentGamepad.rightTrigger.isPressed) && firingCoroutine != null || ammoLeft <= 0)
         //else if (!Mouse.current.leftButton.isPressed && firingCoroutine != null || ammoLeft <= 0)
         {
             StopCoroutine(firingCoroutine);

@@ -14,6 +14,8 @@ public class PlayerAim : MonoBehaviour
     //[SerializeField] public GameObject crosshair;
     private Vector2 aimDirection;
 
+    private Gamepad currentGamepad;
+    private Mouse currentMouse;
 
 
     private void Awake()
@@ -24,7 +26,25 @@ public class PlayerAim : MonoBehaviour
 
     private void Start()
     {
-        
+        //to avoid multiple controller conflict //edit
+        var playerInput = GetComponent<PlayerInput>();
+        if (playerInput != null && playerInput.devices.Count > 0)
+        {
+            foreach (var device in playerInput.devices)
+            {
+                if (device is Gamepad gamepad)
+                {
+                    currentGamepad = gamepad;
+                    break;
+                }
+                if (device is Mouse mouse)//edit
+                {
+                    currentMouse = mouse;
+                    Debug.Log("Mouse");
+                    break;
+                }//end edit
+            }
+        }
     }
 
     public Vector2 getAimDirection()
@@ -42,9 +62,12 @@ public class PlayerAim : MonoBehaviour
     private void Aim()
     {
         //mouse aiming
-        //mouseCursorPos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue()); //edit       
-        //Vector3 aimDirection = (mouseCursorPos - transform.position).normalized; //edit
-        //aimDirection = (mouseCursorPos - transform.position).normalized; //edit
+        if (currentMouse!=null)//edit    
+        {
+            mouseCursorPos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue()); //edit       
+            //Vector3 aimDirection = (mouseCursorPos - transform.position).normalized; //edit
+            aimDirection = (mouseCursorPos - transform.position).normalized; //edit
+        }
 
         if (aimDirection == Vector2.zero)
             return;

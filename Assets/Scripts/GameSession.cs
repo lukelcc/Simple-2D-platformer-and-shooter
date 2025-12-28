@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine.InputSystem;
 
 public class GameSession : MonoBehaviour
 {
@@ -57,30 +58,59 @@ public class GameSession : MonoBehaviour
     //    }
     //}
 
-    public void ResetLevel()
+    public void PlayerDeath()//edit
     {
-        Debug.Log("level resetting");
-        StartCoroutine(ResetLevelCoroutine());       
+        StartCoroutine(PlayerDeathCoroutine());
     }
 
+    IEnumerator PlayerDeathCoroutine()
+    {
+        yield return new WaitForSeconds(levelResetDelay);
+        Debug.Log("Num players: " + PlayerInput.all.Count);
+        if(PlayerInput.all.Count <= 1)
+        {
+            ResetLevel();
+        }
+    }
+
+    public void ResetLevel()
+    {
+        //Debug.Log("Num players: " + PlayerInput.all.Count);
+        Debug.Log("level resetting");
+        //StartCoroutine(ResetLevelCoroutine());
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+
+        //remove all player UI hud. //P1,P2,P3,P4
+        gameObject.transform.GetChild(0).GetChild(0).gameObject.SetActive(false);
+        gameObject.transform.GetChild(0).GetChild(1).gameObject.SetActive(false);
+        gameObject.transform.GetChild(0).GetChild(2).gameObject.SetActive(false);
+        gameObject.transform.GetChild(0).GetChild(3).gameObject.SetActive(false);
+
+        SceneManager.LoadScene(currentSceneIndex);
+    }
+
+    
     public void ResetGame()
     {
         Debug.Log("game resetting");
         StartCoroutine(ResetGameCoroutine());
     }
 
-    IEnumerator ResetLevelCoroutine()
-    {
-        yield return new WaitForSeconds(levelResetDelay);
-        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+    //IEnumerator ResetLevelCoroutine()
+    //{      
+    //    yield return new WaitForSeconds(levelResetDelay);
+    //    //Debug.Log("Num players: " + PlayerInput.all.Count);
 
-        //remove all player UI hud.
-        gameObject.transform.GetChild(0).GetChild(0).gameObject.SetActive(false);
-        gameObject.transform.GetChild(0).GetChild(1).gameObject.SetActive(false);
-        gameObject.transform.GetChild(0).GetChild(2).gameObject.SetActive(false);
+    //    int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
 
-        SceneManager.LoadScene(currentSceneIndex);
-    }
+    //    //remove all player UI hud. //P1,P2,P3,P4
+    //    gameObject.transform.GetChild(0).GetChild(0).gameObject.SetActive(false);
+    //    gameObject.transform.GetChild(0).GetChild(1).gameObject.SetActive(false);
+    //    gameObject.transform.GetChild(0).GetChild(2).gameObject.SetActive(false);
+    //    gameObject.transform.GetChild(0).GetChild(3).gameObject.SetActive(false);
+
+    //    SceneManager.LoadScene(currentSceneIndex);
+    //}
 
     IEnumerator ResetGameCoroutine() //go back to level 1, reset everything
     {
