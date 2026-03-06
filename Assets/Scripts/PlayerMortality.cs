@@ -162,7 +162,8 @@ public class PlayerMortality : MonoBehaviour
         //FindObjectOfType<PlayerLife>().MinusLife();
         //playerInputManager.DisableJoining();
         playerUIObject.SetActive(false);
-        playerUIObject.GetComponent<PlayerLife>().MinusLife();
+        //playerUIObject.GetComponent<PlayerLife>().MinusLife();//edit
+        //FindObjectOfType<GameSession>().PlayerDeath();
         //FindObjectOfType<PlayerStats>().resetWeaponAndAmmo();
 
         //reset the UI stats
@@ -171,14 +172,14 @@ public class PlayerMortality : MonoBehaviour
         playerUIObject.SetActive(false);
         //StartCoroutine(TemporaryDisablePlayerMovementAndVisibility());
         Dismemberment();
-        Debug.Log("Player: " + gameObject.name + " died");
+        //Debug.Log("Player: " + gameObject.name + " died");
     }
 
     private void Dismemberment()
     {
         Destroy(gameObject);
         //gameObject.SetActive(false);
-
+        FindObjectOfType<GameSession>().PlayerDeath();
         Transform firePoint = GetComponent<Transform>().transform;
 
 

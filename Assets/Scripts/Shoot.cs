@@ -130,7 +130,7 @@ public class Shoot : MonoBehaviour
                 if (device is Mouse mouse)//edit
                 {
                     currentMouse = mouse;
-                    Debug.Log("Mouse");
+                    //Debug.Log("Mouse");
                     break;
                 }//end edit
             }

@@ -69,7 +69,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7234484306354961262, guid: fe2fb67b24239584989886b2bbf46719, type: 3}
       propertyPath: spread
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7234484306354961262, guid: fe2fb67b24239584989886b2bbf46719, type: 3}
       propertyPath: magSize

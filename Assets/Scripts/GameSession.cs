@@ -8,7 +8,11 @@ using UnityEngine.InputSystem;
 
 public class GameSession : MonoBehaviour
 {
-    [SerializeField] int levelResetDelay = 2;
+    [SerializeField] int levelResetDelay = 3;
+    [SerializeField] int gameOverDelay = 3;
+    [SerializeField] int maxWins = 3;
+    int numRounds = 0;//edit
+    //public bool isGameOver = false;
 
     //private int remainingLife;
 
@@ -60,39 +64,65 @@ public class GameSession : MonoBehaviour
 
     public void PlayerDeath()//edit
     {
-        StartCoroutine(PlayerDeathCoroutine());
+        //StartCoroutine(PlayerDeathCoroutine());
+        //Debug.Log("Num players: " + PlayerInput.all.Count);
+        if (PlayerInput.all.Count <= 1)
+        {
+            numRounds++;
+            checkWhichPlayerWins();
+        }
     }
 
     IEnumerator PlayerDeathCoroutine()
     {
         yield return new WaitForSeconds(levelResetDelay);
         Debug.Log("Num players: " + PlayerInput.all.Count);
-        if(PlayerInput.all.Count <= 1)
+        if (PlayerInput.all.Count <= 1)
         {
-            ResetLevel();
+            numRounds++;
+            checkWhichPlayerWins();           
         }
     }
 
     public void ResetLevel()
     {
+        StartCoroutine(ResetLevelCoroutine());
+        //Debug.Log("Num players: " + PlayerInput.all.Count);
+        //Debug.Log("level resetting");
+        ////StartCoroutine(ResetLevelCoroutine());
+        //int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+
+        ////remove all player UI hud. //P1,P2,P3,P4
+        //gameObject.transform.GetChild(0).GetChild(0).gameObject.SetActive(false);
+        //gameObject.transform.GetChild(0).GetChild(1).gameObject.SetActive(false);
+        //gameObject.transform.GetChild(0).GetChild(2).gameObject.SetActive(false);
+        //gameObject.transform.GetChild(0).GetChild(3).gameObject.SetActive(false);
+
+        //SceneManager.LoadScene(currentSceneIndex);
+    }
+
+    IEnumerator ResetLevelCoroutine()//edit
+    {
+        gameObject.transform.GetChild(0).GetChild(5).gameObject.GetComponent<TextMeshProUGUI>().text = 
+            FindObjectOfType<PlayerWins>().name + " wins round " + numRounds;
+        gameObject.transform.GetChild(0).GetChild(5).gameObject.SetActive(true);
         //Debug.Log("Num players: " + PlayerInput.all.Count);
         Debug.Log("level resetting");
         //StartCoroutine(ResetLevelCoroutine());
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
 
         //remove all player UI hud. //P1,P2,P3,P4
-        gameObject.transform.GetChild(0).GetChild(0).gameObject.SetActive(false);
-        gameObject.transform.GetChild(0).GetChild(1).gameObject.SetActive(false);
-        gameObject.transform.GetChild(0).GetChild(2).gameObject.SetActive(false);
-        gameObject.transform.GetChild(0).GetChild(3).gameObject.SetActive(false);
-
+        //gameObject.transform.GetChild(0).GetChild(0).gameObject.SetActive(false);
+        //gameObject.transform.GetChild(0).GetChild(1).gameObject.SetActive(false);
+        //gameObject.transform.GetChild(0).GetChild(2).gameObject.SetActive(false);
+        //gameObject.transform.GetChild(0).GetChild(3).gameObject.SetActive(false);
+        yield return new WaitForSeconds(levelResetDelay);
+        gameObject.transform.GetChild(0).GetChild(5).gameObject.SetActive(false);
         SceneManager.LoadScene(currentSceneIndex);
     }
 
-    
     public void ResetGame()
     {
-        Debug.Log("game resetting");
         StartCoroutine(ResetGameCoroutine());
     }
 
@@ -114,10 +144,25 @@ public class GameSession : MonoBehaviour
 
     IEnumerator ResetGameCoroutine() //go back to level 1, reset everything
     {
-        yield return new WaitForSeconds(levelResetDelay);
+        //yield return new WaitForSeconds(levelResetDelay);
+        Debug.Log("game resetting");
+        gameObject.transform.GetChild(0).GetChild(4).gameObject.SetActive(true);//display game over text
+        gameObject.transform.GetChild(0).GetChild(5).gameObject.GetComponent<TextMeshProUGUI>().text = "Winner: " +
+            FindObjectOfType<PlayerWins>().name;
+        gameObject.transform.GetChild(0).GetChild(5).gameObject.SetActive(true);
+        yield return new WaitForSeconds(gameOverDelay);
         //reset all collectibles
         FindObjectOfType<ScenePersist>().ResetScenePersist();
-        SceneManager.LoadScene(0);      
+        SceneManager.LoadScene(0);
         Destroy(gameObject);
+    }
+
+    public void checkWhichPlayerWins()
+    {       
+        Debug.Log("Round: " + numRounds +", Winner: "+ FindObjectOfType<PlayerWins>().name);
+        if (FindObjectOfType<PlayerWins>().playerWins1Round() == maxWins)
+            ResetGame();
+        else
+            ResetLevel();
     }
 }

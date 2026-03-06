@@ -14,7 +14,8 @@ public class PlayerLife : MonoBehaviour
 
     private void Start()
     {
-        setRemainingLife(FindObjectOfType<PlayerMortality>().GetStartingLife());
+        //setRemainingLife(FindObjectOfType<PlayerMortality>().GetStartingLife());
+        //GetComponent<PlayerWins>().initializeWinCountTo0();//edit
     }
 
     public void setRemainingLife(int life)
@@ -36,18 +37,20 @@ public class PlayerLife : MonoBehaviour
         {
             onLifeChange();
         }
-       // if (FindObjectsOfType<PlayerMortality>().Length)
+        // if (FindObjectsOfType<PlayerMortality>().Length)
 
-        if (remainingLife > 0)
-        {          
-            Debug.Log("remaining health: " + remainingLife);          
-            //Debug.Log("num remaining players: " + FindObjectsOfType<PlayerMortality>().Length);
-            FindObjectOfType<GameSession>().PlayerDeath();//edit            
-        }
-        else
-        {
-            Debug.Log("game resetting, back to level 1");
-            FindObjectOfType<GameSession>().ResetGame();
-        }
+        FindObjectOfType<GameSession>().PlayerDeath();//edit  
+
+        //if (remainingLife > 0)
+        //{          
+        //    Debug.Log("remaining health: " + remainingLife);          
+        //    //Debug.Log("num remaining players: " + FindObjectsOfType<PlayerMortality>().Length);
+        //    FindObjectOfType<GameSession>().PlayerDeath();//edit            
+        //}
+        //else
+        //{
+        //    Debug.Log("game resetting, back to level 1");
+        //    FindObjectOfType<GameSession>().ResetGame();
+        //}
     }
 }

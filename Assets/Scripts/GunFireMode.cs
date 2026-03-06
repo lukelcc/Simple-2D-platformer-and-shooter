@@ -104,10 +104,10 @@ public abstract class GunFireMode : MonoBehaviour
 
         //Destroy(grip.GetChild(0).gameObject);//replace existing weapon
         playerObject = playerTransform.gameObject;//assign the player object
-        Debug.Log(playerObject);
+        //Debug.Log(playerObject);
         grip = playerTransform.GetChild(0).GetChild(1);//assign the player grip    
-        Debug.Log(grip);
-        Debug.Log(grip.GetChild(0));
+        //Debug.Log(grip);
+        //Debug.Log(grip.GetChild(0));
         Destroy(grip.GetChild(0).gameObject);
         
         transform.SetParent(grip);

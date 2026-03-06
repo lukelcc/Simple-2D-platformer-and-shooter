@@ -57,7 +57,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3560688464844677100, guid: 8df1c8f2b665f1f45877436651028d9b, type: 3}
       propertyPath: spread
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3560688464844677100, guid: 8df1c8f2b665f1f45877436651028d9b, type: 3}
       propertyPath: magSize
@@ -79,6 +79,10 @@ PrefabInstance:
       propertyPath: gunShotSFX
       value: 
       objectReference: {fileID: 8300000, guid: 15f8a5c46a292ac4ab4d526a6fdd2092, type: 3}
+    - target: {fileID: 3560688464844677100, guid: 8df1c8f2b665f1f45877436651028d9b, type: 3}
+      propertyPath: weaponClass
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3560688464844677100, guid: 8df1c8f2b665f1f45877436651028d9b, type: 3}
       propertyPath: normalSprite
       value: 

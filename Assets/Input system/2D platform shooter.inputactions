@@ -261,17 +261,6 @@
                 },
                 {
                     "name": "",
-                    "id": "b1fcdd5b-4077-4fe7-80a3-cac6bd4f9c12",
-                    "path": "<XInputController>/leftShoulder",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Jump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "678b64f7-f239-4510-a4c9-0d03b903b5e9",
                     "path": "<XInputController>/buttonWest",
                     "interactions": "",
@@ -332,6 +321,17 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
+                    "action": "PickUp",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "922a73d7-41bb-4893-9735-0c7a64aab135",
+                    "path": "<XInputController>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
                     "action": "PickUp",
                     "isComposite": false,
                     "isPartOfComposite": false
