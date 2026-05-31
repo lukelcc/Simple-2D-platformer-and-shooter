@@ -9,6 +9,7 @@ TagManager:
   - CanHurtEnemy
   - Weapon
   - Ammo
+  - Hp
   layers:
   - Default
   - TransparentFX

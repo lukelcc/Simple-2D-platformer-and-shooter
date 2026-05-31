@@ -21,8 +21,11 @@ public abstract class GunFireMode : MonoBehaviour
         Sniper_rifle
     }
 
+
+
     [SerializeField] WeaponClass weaponClass;
-    [SerializeField][Range(1, 10)] private int spawnChance=5;
+    //[SerializeField][Range(1, 10)] private int spawnChance=5;
+    [SerializeField][Range(1, 5)] private int weaponTier = 1;
     [SerializeField] private int magSize = 30;//bullets in magazine
     [SerializeField] private float firingRate = .5f;//rate of fire, cooldown between shots
     [SerializeField] private float spread = 2;//bullet spread  
@@ -42,13 +45,13 @@ public abstract class GunFireMode : MonoBehaviour
     protected GameObject playerObject;
     Vector3 mouseCursorPos;
 
-    public const int _PISTOL = 10, 
-        _SMG = 8, 
-        _AR = 6, 
-        _RIFLE = 4,
-        _SHOTGUN = 6, 
-        _LMG = 2,
-        _SR = 1;
+    //public const int _PISTOL = 10, 
+    //    _SMG = 8, 
+    //    _AR = 6, 
+    //    _RIFLE = 4,
+    //    _SHOTGUN = 6, 
+    //    _LMG = 2,
+    //    _SR = 1;
 
     // Start is called before the first frame update
     void Start()

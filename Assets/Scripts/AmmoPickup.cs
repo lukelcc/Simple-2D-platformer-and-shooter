@@ -5,7 +5,7 @@ using UnityEngine;
 public class AmmoPickup : MonoBehaviour
 {
     bool wasCollected = false;
-
+    public ItemSpawner itemSpawnerPrefab;
     public enum gameObjectTag
     {
         Player
@@ -14,10 +14,17 @@ public class AmmoPickup : MonoBehaviour
     {
         if (collision.gameObject.tag.Equals(gameObjectTag.Player.ToString()) && !wasCollected)
         {
-            wasCollected = true;
-            collision.gameObject.GetComponent<Shoot>().pickUpAmmo();
-            gameObject.SetActive(false);
-            Destroy(gameObject);
+            try
+            {
+                collision.gameObject.GetComponent<Shoot>().pickUpAmmo();
+                gameObject.SetActive(false);
+                wasCollected = true;
+                Instantiate(itemSpawnerPrefab, transform.position, Quaternion.identity);
+                Destroy(gameObject);
+            }catch(UnassignedReferenceException)
+            {
+                Debug.Log("Empty hand, cannot pick up ammo");
+            }
         }
     }
 }

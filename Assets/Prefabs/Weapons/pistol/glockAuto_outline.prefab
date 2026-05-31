@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7373635046355807650}
   - component: {fileID: 2414505365315218929}
   m_Layer: 0
-  m_Name: glock_auto_outline
+  m_Name: glockAuto_outline
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -1,0 +1,94 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4621163898793265462
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4621163898793265460}
+  - component: {fileID: 4621163898793265463}
+  m_Layer: 0
+  m_Name: Weapon spawner
+  m_TagString: Untagged
+  m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4621163898793265460
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4621163898793265462}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 27, y: -3, z: -0.012786096}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4621163898793265463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4621163898793265462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10cf6962207a0c549b8e39bc45033df7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnCooldown: 10
+  wlbt:
+  - tier: 1
+    weaponPrefabList:
+    - {fileID: 289198573033716964, guid: 6416fceb38929714ca0f423190617390, type: 3}
+    - {fileID: 2479980833448620647, guid: c9a6fc602258bcd429eaa395cc89918e, type: 3}
+    - {fileID: 7900163851883088643, guid: 77f1e2b6f2df25440800227dfcca3582, type: 3}
+    - {fileID: 4846029672796547793, guid: e73565bcb601c43469072f08f970d004, type: 3}
+    - {fileID: 5154079605105931767, guid: 3f7036f9e0f44da499ce3b0a93e975e9, type: 3}
+    - {fileID: 1747682827969306088, guid: f7774943df0e8814c8ecfc09952372a9, type: 3}
+    spawnWeight: 10
+  - tier: 2
+    weaponPrefabList:
+    - {fileID: 3321224608118223430, guid: 2e20835ecbcad6e4fabe124fa8a180f9, type: 3}
+    - {fileID: 6142998403995951867, guid: 5fc246916473fb04589a12dcbacfb0c2, type: 3}
+    - {fileID: 7221132957625896090, guid: af6958794f79ad94ca0bec913276d54b, type: 3}
+    - {fileID: 560045844771466505, guid: 557ef301474bd3445b8abf0a4308c01f, type: 3}
+    - {fileID: 289405310073630685, guid: 254106bba3ec0d7468365b6b3c2dd9b2, type: 3}
+    - {fileID: 3645296013350840552, guid: d2692875814875f4ba43f49937174fd2, type: 3}
+    - {fileID: 9082762069785658138, guid: 0cfabd3285ac771488120b7479571f53, type: 3}
+    spawnWeight: 8
+  - tier: 3
+    weaponPrefabList:
+    - {fileID: 9160350528776376941, guid: 96974d3082252734c98e132615e1ddc0, type: 3}
+    - {fileID: 4173067404063679916, guid: f96142b4a74479544bb0d8a9e48a526b, type: 3}
+    - {fileID: 5898032894705769392, guid: 7ae2ae6993e631d49ae34bd66f36198c, type: 3}
+    - {fileID: 579462485621317153, guid: d0be8a54c7ab4b5499ac7b1489be98cb, type: 3}
+    - {fileID: 8967593722196193816, guid: 20dee4af76881f3428aae6809d2d97a2, type: 3}
+    - {fileID: 1989361346343171787, guid: abc251f3843f6534dab623c78367e888, type: 3}
+    - {fileID: 4393863489788355940, guid: 72619a807a565e442ba18ac7b5fef541, type: 3}
+    - {fileID: 4289462154970513862, guid: 99ffe587933848e45ba270f16afe5b85, type: 3}
+    spawnWeight: 5
+  - tier: 4
+    weaponPrefabList:
+    - {fileID: 8328847278714353248, guid: 00539f993bb4b1c4c80261351306f0e9, type: 3}
+    - {fileID: 6643106426727026762, guid: e2f19829e80781647bd14e28873b6b98, type: 3}
+    - {fileID: 7176049469028377645, guid: 6a234683c9091d94b914770616ce6962, type: 3}
+    - {fileID: 181320155280033761, guid: f611b877b2d7eb2478789cc5d0731644, type: 3}
+    - {fileID: 5665185092724965006, guid: 7d50f9499c182d34abb2cf302fc52697, type: 3}
+    - {fileID: 5250539975637156564, guid: 352ec4a3f3768854a8df6b2e5a8aca85, type: 3}
+    - {fileID: 8324261807034778027, guid: 317512fa70d9fc3448f6da028fcea8c3, type: 3}
+    spawnWeight: 2
+  - tier: 5
+    weaponPrefabList:
+    - {fileID: 5988148590929349698, guid: a19da6b286ba4f84fb604853f77a0f09, type: 3}
+    - {fileID: 3595203987395429090, guid: 82ae901ae85b9654d951e9e7d4afb232, type: 3}
+    - {fileID: 8768159713414211159, guid: 5c40cc4d87fa1144c8d9f80d82a6bc4b, type: 3}
+    spawnWeight: 1

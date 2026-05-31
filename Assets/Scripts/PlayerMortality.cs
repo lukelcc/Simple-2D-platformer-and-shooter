@@ -96,6 +96,15 @@ public class PlayerMortality : MonoBehaviour
             }
                 
     }
+
+    //heal
+    public void AddHp(int HPtoAdd)
+    {
+        currentHp += HPtoAdd;
+        if (currentHp >= maxHp)
+            currentHp = maxHp;
+        playerUIObject.GetComponentInChildren<HealthBar>().SetHp(currentHp);
+    }
     //private void OnCollisionEnter2D(Collision2D collision) // when player get hurt by enemies/hazards
     //{
     //    if (collision.gameObject.tag.Equals(gameObjectTag.Enemy.ToString()) || collision.gameObject.tag.Equals(gameObjectTag.Hazard.ToString()))

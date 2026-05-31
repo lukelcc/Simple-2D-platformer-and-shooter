@@ -10,7 +10,11 @@ public class Shoot : MonoBehaviour
 {
     //link to player stats
     //[SerializeField] public GameObject playerStatsObj;
+
+    //When pickup weapon, instanstiate a weapon spawner object
+    public WeaponSpawner weaponSpawnerPrefab;
     //projectile pool settings
+
     [SerializeField] public Projectile ProjectilePrefab;
     [SerializeField] public int maxProjectilePoolSize = 50;
     //common gun stats
@@ -28,7 +32,6 @@ public class Shoot : MonoBehaviour
     public bool fullAutoMode = false;//semi/full-auto  
     public bool isBurst = false;
     public float burstFiringRate = .05f;//burst firing rate
-
 
     [SerializeField] public AudioClip gunShotSFX;
     [SerializeField][Range(0, 1)] public float gunShotSFXVol = 0.7f;
@@ -357,14 +360,19 @@ public class Shoot : MonoBehaviour
         //if (withinPickupRange && !Mouse.current.leftButton.isPressed && !onCooldown) //cannot pickup when existing weapon is firing
         if (withinPickupRange && !onCooldown) //cannot pickup when existing weapon is firing //edit
         {
+            //shoot delay after pickup
             StartCoroutine(PickupFireCoolDown());
+            //instantiate a weapon spawner object
+            Instantiate(weaponSpawnerPrefab, weaponWithinPickupRange.transform.position, Quaternion.identity);
             weaponWithinPickupRange.GetComponent<GunFireMode>().pickUpWeapon(GetComponent<Transform>());//update weapon stats
-            AudioSource.PlayClipAtPoint(gunCockSFX, Camera.main.transform.position, gunCockSFXVol);
+            AudioSource.PlayClipAtPoint(gunCockSFX, Camera.main.transform.position, gunCockSFXVol);//play gun cock audio
             ammoLeft = magSize;//refill magazine
             playerUIObject.GetComponent<PlayerStats>().newAmmoMag(ammoLeft);//update ammo UI
             playerUIObject.GetComponent<PlayerStats>().pickupWeapon(modelName);//update gun UI
             //playerStatsObj.GetComponent<PlayerStats>().newAmmoMag(ammoLeft);//update ammo UI
             //playerStatsObj.GetComponent<PlayerStats>().pickupWeapon(modelName);//update gun UI
+            
+            
         }
     }
 
@@ -396,6 +404,7 @@ public class Shoot : MonoBehaviour
         AudioSource.PlayClipAtPoint(gunCockSFX, Camera.main.transform.position, gunCockSFXVol);
         ammoLeft += magSize;//refill magazine
         playerUIObject.GetComponent<PlayerStats>().newAmmoMag(ammoLeft);
+        
         //playerStatsObj.GetComponent<PlayerStats>().newAmmoMag(ammoLeft);
     }
 
