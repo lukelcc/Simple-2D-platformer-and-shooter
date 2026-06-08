@@ -155,6 +155,14 @@ public class PlayerMovement : MonoBehaviour
     {
         if (GetComponent<BoxCollider2D>().IsTouchingLayers(LayerMask.GetMask(gameObjectTag.Bouncing.ToString())))
         {
+            //collision.gameObject.transform.localScale = new Vector3(2, 2);//???
+
+            // This is your collision point in world space
+            //Vector3 collisionPoint = collision.GetContact(0).point;
+            //Debug.Log("bounce point:" + collisionPoint);
+            //FindObjectOfType<BouncePadAnimation>().AnimateBouncePad(collision.GetContact(0).point);
+            collision.gameObject.GetComponent<BouncePadAnimation>().AnimateBouncePad(collision.GetContact(0).point);
+            //Debug.Log("touch point:"+collision.GetContact(0).point);
             Bounce();
         }
     }

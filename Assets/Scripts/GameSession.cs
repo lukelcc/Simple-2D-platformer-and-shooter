@@ -8,33 +8,129 @@ using UnityEngine.InputSystem;
 
 public class GameSession : MonoBehaviour
 {
+    [Header("Game settings")]
     [SerializeField] int levelResetDelay = 3;
     [SerializeField] int gameOverDelay = 3;
     [SerializeField] int maxWins = 3;
-    int numRounds = 0;//edit
-    //public bool isGameOver = false;
 
-    //private int remainingLife;
+    [Header("Countdown settings")]
+    [SerializeField] int countdownStartingNumber = 3;
+    [SerializeField] float countdownDuration = 3f;    
+    [SerializeField] TextMeshProUGUI countdownTimerText;
+    
+    int numRounds = 0;//edit
+    private bool firstWeaponAlreadySpawned = false;
+    private bool firstItemAlreadySpawned = false;
 
     public event Action onLifeChange;
+
+    IEnumerator FirstWeaponSpawnCountdownTimer(int firstSpawnCooldown)
+    {
+        yield return new WaitForSeconds(firstSpawnCooldown);
+        firstWeaponAlreadySpawned = true;
+    }
+
+    IEnumerator FirstItemSpawnCountdownTimer(int firstSpawnCooldown)
+    {
+        yield return new WaitForSeconds(firstSpawnCooldown);
+        firstItemAlreadySpawned = true;
+    }
+
+    public bool HasTheFirstWeaponAlreadySpawned(int firstSpawnCooldown)//has the first weapons spawn?
+    {
+        if (firstWeaponAlreadySpawned == false)//if the first weapons has not spawn
+        {
+            StartCoroutine(FirstWeaponSpawnCountdownTimer(firstSpawnCooldown));
+            return false;
+        }
+        else //if the first weapon has spawn
+            return true;
+    }
+
+    public bool HasTheFirstItemAlreadySpawned(int firstSpawnCooldown)//has the first items spawn?
+    {
+        if (firstItemAlreadySpawned == false)//if the first items has not spawn
+        {
+            StartCoroutine(FirstItemSpawnCountdownTimer(firstSpawnCooldown));
+            return false;
+        }
+        else //if the first items has spawn
+            return true;
+    }
+
+
+
+    IEnumerator StartCountdownTimer(int countdownStartingNumber, float countdownDuration)
+    {
+        Debug.Log("Start countdown:");
+        FreezeAllPlayers();
+        countdownTimerText.gameObject.SetActive(true);
+        float interval = countdownDuration / countdownStartingNumber;
+        for(int number = countdownStartingNumber; number >= 1; number--)
+        {
+            countdownTimerText.text = number.ToString();
+            yield return new WaitForSeconds(interval);
+        }
+        countdownTimerText.text = "FIGHT!";
+        UnfreezeAllPlayers();
+        Debug.Log("end countdown");
+        yield return new WaitForSeconds(1f);
+        countdownTimerText.gameObject.SetActive(false);
+        DestroyPlayerLabel();
+    }
+
+    //destroy player label when start
+    private void DestroyPlayerLabel()
+    {
+        for (int playerIndex = 0; playerIndex < PlayerInput.all.Count; playerIndex++)
+        {
+            PlayerInput.GetPlayerByIndex(playerIndex).GetComponent<PlayerMortality>().DisablePlayerLabel();
+        }
+    }
+
+    
+
+    public void FreezeAllPlayers()
+    {
+        for (int playerIndex = 0; playerIndex < PlayerInput.all.Count; playerIndex++)
+        {
+            PlayerInput.GetPlayerByIndex(playerIndex).DeactivateInput();
+        }
+        Debug.Log("freeze all players");
+    }
+
+    public void UnfreezeAllPlayers()
+    {
+        for (int playerIndex = 0; playerIndex < PlayerInput.all.Count; playerIndex++)
+        {
+            PlayerInput.GetPlayerByIndex(playerIndex).ActivateInput();
+        }
+        Debug.Log("Unfreeze all players");
+    }
+
+    public void ResetGameRoundSettings()
+    {
+        firstWeaponAlreadySpawned = false;
+    }
 
 
     private void Awake()//singleton for gamesession
     {
-        
+        StartCoroutine(StartCountdownTimer(countdownStartingNumber, countdownDuration));
         int numGameSessions = FindObjectsOfType<GameSession>().Length;
         if (numGameSessions > 1) //restart level
-        {            
+        {           
             Debug.Log("destroy old game session and create another");            
             Destroy(gameObject);
+            
         }
         else //restart game
         {
-            //remainingLife = FindObjectOfType<PlayerMortality>().GetStartingLife();
-            //Debug.Log("reset health to: " + remainingLife);
             Debug.Log("create new game session");//when 1st time startup
             DontDestroyOnLoad(gameObject);
+
         }
+        
     }
 
     
@@ -117,7 +213,12 @@ public class GameSession : MonoBehaviour
         //gameObject.transform.GetChild(0).GetChild(2).gameObject.SetActive(false);
         //gameObject.transform.GetChild(0).GetChild(3).gameObject.SetActive(false);
         yield return new WaitForSeconds(levelResetDelay);
+        //start countdown timer for next round
+        StartCoroutine(StartCountdownTimer(countdownStartingNumber, countdownDuration));
         gameObject.transform.GetChild(0).GetChild(5).gameObject.SetActive(false);
+        //reset the game settings for next round
+        ResetGameRoundSettings();
+        //StartCoroutine(StartCountdownTimer(countdownStartingNumber, countdownDuration));
         SceneManager.LoadScene(currentSceneIndex);
     }
 

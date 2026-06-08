@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 //using static UnityEngine.InputSystem.PlayerInputManager;
@@ -26,6 +27,22 @@ public class PlayerMortality : MonoBehaviour
     Color originaSpriteColor;
     //PlayerInputManager playerInputManager;
 
+
+    private TextMeshPro _label;
+
+
+    //player label settings
+    private Vector3 labelOffset = new Vector3(0f, 1.4f, 0f);//player label offset above sprite
+    private float labelFontSize = 10f;//label font size
+    private Color labelColor;
+
+
+
+    private void Awake()
+    {
+        
+    }
+
     int lastFrame = 0;
     private void Start()
     {
@@ -38,21 +55,25 @@ public class PlayerMortality : MonoBehaviour
         {
             playerUIObject = FindObjectOfType<GameSession>().gameObject.transform.GetChild(0).GetChild(0).gameObject;
             originaSpriteColor = Color.white;
+            BuildAndDisplayLabel(GetComponent<PlayerInput>().playerIndex+1, originaSpriteColor);
         }
         else if (GetComponent<PlayerInput>().playerIndex == 1)//P2
         {
             playerUIObject = FindObjectOfType<GameSession>().gameObject.transform.GetChild(0).GetChild(1).gameObject;           
             originaSpriteColor = Color.green;
+            BuildAndDisplayLabel(GetComponent<PlayerInput>().playerIndex+1, originaSpriteColor);
         }
         else if (GetComponent<PlayerInput>().playerIndex == 2)//P3
         {
             playerUIObject = FindObjectOfType<GameSession>().gameObject.transform.GetChild(0).GetChild(2).gameObject;
             originaSpriteColor = Color.blue;
+            BuildAndDisplayLabel(GetComponent<PlayerInput>().playerIndex+1, originaSpriteColor);
         }
         else if (GetComponent<PlayerInput>().playerIndex == 3)//P4
         {
             playerUIObject = FindObjectOfType<GameSession>().gameObject.transform.GetChild(0).GetChild(3).gameObject;
             originaSpriteColor = Color.black;
+            BuildAndDisplayLabel(GetComponent<PlayerInput>().playerIndex+1, originaSpriteColor);
         }
         playerUIObject.SetActive(true);
         GetComponent<SpriteRenderer>().color = originaSpriteColor;
@@ -65,7 +86,7 @@ public class PlayerMortality : MonoBehaviour
         playerUIObject.GetComponentInChildren<HealthBar>().SetMaxHp(maxHp);
         playerUIObject.GetComponent<PlayerStats>().resetWeaponAndAmmo();
 
-
+        //BuildLabel();
 
     }
 
@@ -74,6 +95,95 @@ public class PlayerMortality : MonoBehaviour
         Enemy,
         Hazard
     }
+
+    //IEnumerator DestroyPlayerLabelCoroutine(float delay)
+    //{
+    //    yield return new WaitForSeconds(delay);
+    //    _label.gameObject.SetActive(false);
+    //}
+
+    public void DisablePlayerLabel()
+    {
+        //StartCoroutine(DestroyPlayerLabelCoroutine(delay));
+        _label.gameObject.SetActive(false);
+    }
+
+    /// <summary>Show or hide (with fade) the P1/P2 label.</summary>
+    //public void ShowLabel(bool show)
+    //{
+    //    if (_label == null) return;
+
+    //    if (_fadeCoroutine != null) StopCoroutine(_fadeCoroutine);
+
+    //    if (show)
+    //    {
+    //        _label.gameObject.SetActive(true);
+    //        SetLabelAlpha(1f);
+    //    }
+    //    else
+    //    {
+    //        _fadeCoroutine = StartCoroutine(FadeLabel());
+    //    }
+    //}
+
+    // ?? label construction ????????????????????????????????????????
+
+    void BuildAndDisplayLabel(int playerNum, Color spriteColor)
+    {
+        // Create a world-space TextMeshPro object as a child
+        var playerLabel = new GameObject($"Label_{playerNum}");
+        playerLabel.transform.SetParent(transform, false);
+        playerLabel.transform.localPosition = labelOffset;
+
+        // Sorting: render above sprites (adjust layer/order as needed)
+        playerLabel.layer = gameObject.layer;
+
+        _label = playerLabel.AddComponent<TextMeshPro>();
+        _label.text = "P"+playerNum.ToString();
+        _label.fontSize = labelFontSize;
+        _label.color = spriteColor;
+        _label.alignment = TextAlignmentOptions.Center;
+        _label.fontStyle = FontStyles.Bold;
+
+        // Outline for readability over any background
+        
+        _label.outlineColor = Color.black;
+
+        // Renderer order: draw on top of player sprite
+        //GetComponent<MeshRenderer>().sortingLayerName = "Player";
+        var r = playerLabel.GetComponent<MeshRenderer>();
+        if (r != null) r.sortingLayerName = "Player";
+
+        //DestroyPlayerLabel(2);
+        //go.SetActive(false); // hidden by default until ShowLabel(true)
+    }
+
+    // ?? helpers ???????????????????????????????????????????????????
+
+    //IEnumerator FadeLabel()
+    //{
+    //    float t = 0f;
+    //    while (t < labelFadeDuration)
+    //    {
+    //        t += Time.deltaTime;
+    //        SetLabelAlpha(1f - Mathf.Clamp01(t / labelFadeDuration));
+    //        yield return null;
+    //    }
+    //    _label.gameObject.SetActive(false);
+    //    SetLabelAlpha(1f); // reset for next time
+    //}
+
+    //void SetLabelAlpha(float a)
+    //{
+    //    if (_label == null) return;
+    //    Color c = _label.color;
+    //    c.a = a;
+    //    _label.color = c;
+    //    // Also fade outline
+    //    Color oc = _label.outlineColor;
+    //    oc.a = a;
+    //    _label.outlineColor = oc;
+    //}
 
 
     public int GetStartingLife()

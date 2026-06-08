@@ -100,7 +100,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healSFX: {fileID: 8300000, guid: da172604945ea784ebe0403cd17db763, type: 3}
   healSFXVol: 1
-  Hp: 7
+  Hp: 8
   itemSpawnerPrefab: {fileID: 1786168310094723232, guid: 106c5c1a24101de44b49cc30de888486, type: 3}
 --- !u!61 &5224251505249756342
 BoxCollider2D:

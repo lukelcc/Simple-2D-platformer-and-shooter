@@ -44,9 +44,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 206568e6f21426142b09532d65f5d7cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnCooldown: 25
+  firstSpawnCooldown: 10
+  subsequentSpawnCooldown: 30
   item_array:
   - itemPrefab: {fileID: 5557968526494161211, guid: d571a5f7cc838e74d87713f44ebd37ae, type: 3}
-    spawnWeight: 7
+    spawnWeight: 6
   - itemPrefab: {fileID: 324012253051133455, guid: b74f84c52b48a90499c68988e2e2e1fb, type: 3}
-    spawnWeight: 3
+    spawnWeight: 4

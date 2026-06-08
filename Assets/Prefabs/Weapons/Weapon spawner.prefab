@@ -44,7 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10cf6962207a0c549b8e39bc45033df7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnCooldown: 10
+  firstSpawnCooldown: 3
+  subsequentSpawnCooldown: 12
   wlbt:
   - tier: 1
     weaponPrefabList:
@@ -85,6 +86,7 @@ MonoBehaviour:
     - {fileID: 5665185092724965006, guid: 7d50f9499c182d34abb2cf302fc52697, type: 3}
     - {fileID: 5250539975637156564, guid: 352ec4a3f3768854a8df6b2e5a8aca85, type: 3}
     - {fileID: 8324261807034778027, guid: 317512fa70d9fc3448f6da028fcea8c3, type: 3}
+    - {fileID: 686060723831648004, guid: c17dfe5d1fe0009439a178d2ff10f0e2, type: 3}
     spawnWeight: 2
   - tier: 5
     weaponPrefabList:

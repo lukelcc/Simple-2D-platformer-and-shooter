@@ -13,7 +13,9 @@ public class WeaponListByTier          // ← NOT a MonoBehaviour
 //[System.Serializable]
 public class WeaponSpawner : MonoBehaviour
 {
-    [Range(0, 30)] public int spawnCooldown = 10;//spawn delay in seconds
+    [Range(0, 30)] public int firstSpawnCooldown = 5;//first spawn delay in seconds
+    [Range(0, 30)] public int subsequentSpawnCooldown = 10;//subsequent spawn delay in seconds
+    private int spawnCooldown;
 
     public WeaponListByTier[] wlbt;//the whole array of weapon tiers
     WeaponListByTier SelectWeaponTierByPorbability() //constructor to choose weapon tier based on probability
@@ -52,6 +54,18 @@ public class WeaponSpawner : MonoBehaviour
 
     private void Start()
     {
+        if (FindObjectOfType<GameSession>().HasTheFirstWeaponAlreadySpawned(firstSpawnCooldown) == false)//the first weapons have not spawn
+        {
+            spawnCooldown = firstSpawnCooldown;
+            //Debug.Log(spawnCooldown);
+        }
+
+        else//the first weapons have spawn
+        {
+            spawnCooldown = subsequentSpawnCooldown;
+            //Debug.Log(spawnCooldown);
+        }
+
         WeaponListByTier selectedTier = SelectWeaponTierByPorbability();//select only one weapon tier.
         //Debug.Log("selected tier:" + selectedTier.tier);
         StartCoroutine(SelectAndSpawnWeaponFromTier(selectedTier));

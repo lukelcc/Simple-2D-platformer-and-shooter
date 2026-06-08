@@ -11,7 +11,9 @@ public class Item          // ← NOT a MonoBehaviour
 
 public class ItemSpawner : MonoBehaviour
 {
-    [Range(0, 60)] public int spawnCooldown = 10;//spawn delay in seconds
+    [Range(0, 30)] public int firstSpawnCooldown = 10;//first spawn delay in seconds
+    [Range(0, 30)] public int subsequentSpawnCooldown = 20;//subsequent spawn delay in seconds
+    private int spawnCooldown;
 
     public Item[] item_array;//the whole array of item
     Item SelectItemByPorbability() //constructor to choose item based on probability
@@ -40,6 +42,18 @@ public class ItemSpawner : MonoBehaviour
 
     private void Start()
     {
+        if (FindObjectOfType<GameSession>().HasTheFirstItemAlreadySpawned(firstSpawnCooldown) == false)//the first items have not spawn
+        {
+            spawnCooldown = firstSpawnCooldown;
+            //Debug.Log(spawnCooldown);
+        }
+
+        else//the first items have spawn
+        {
+            spawnCooldown = subsequentSpawnCooldown;
+            //Debug.Log(spawnCooldown);
+        }
+
         Item selectedItem = SelectItemByPorbability();
         StartCoroutine(SpawnItem(selectedItem));
     }
