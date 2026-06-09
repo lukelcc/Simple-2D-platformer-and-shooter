@@ -15,7 +15,8 @@ public class GameSession : MonoBehaviour
 
     [Header("Countdown settings")]
     [SerializeField] int countdownStartingNumber = 3;
-    [SerializeField] float countdownDuration = 3f;    
+    [SerializeField] public float countdownDuration = 3f;
+    [SerializeField] public float playerLabelDuration = 4f;
     [SerializeField] TextMeshProUGUI countdownTimerText;
     
     int numRounds = 0;//edit
@@ -58,12 +59,15 @@ public class GameSession : MonoBehaviour
             return true;
     }
 
-
+    private void Start()
+    {
+        StartCoroutine(StartCountdownTimer(countdownStartingNumber, countdownDuration));
+    }
 
     IEnumerator StartCountdownTimer(int countdownStartingNumber, float countdownDuration)
     {
         Debug.Log("Start countdown:");
-        FreezeAllPlayers();
+        //FreezeAllPlayers();
         countdownTimerText.gameObject.SetActive(true);
         float interval = countdownDuration / countdownStartingNumber;
         for(int number = countdownStartingNumber; number >= 1; number--)
@@ -72,41 +76,41 @@ public class GameSession : MonoBehaviour
             yield return new WaitForSeconds(interval);
         }
         countdownTimerText.text = "FIGHT!";
-        UnfreezeAllPlayers();
+        //UnfreezeAllPlayers();
         Debug.Log("end countdown");
         yield return new WaitForSeconds(1f);
         countdownTimerText.gameObject.SetActive(false);
-        DestroyPlayerLabel();
+        //DestroyPlayerLabel();
     }
 
     //destroy player label when start
-    private void DestroyPlayerLabel()
-    {
-        for (int playerIndex = 0; playerIndex < PlayerInput.all.Count; playerIndex++)
-        {
-            PlayerInput.GetPlayerByIndex(playerIndex).GetComponent<PlayerMortality>().DisablePlayerLabel();
-        }
-    }
+    //private void DestroyPlayerLabel()
+    //{
+    //    for (int playerIndex = 0; playerIndex < PlayerInput.all.Count; playerIndex++)
+    //    {
+    //        PlayerInput.GetPlayerByIndex(playerIndex).GetComponent<PlayerMortality>().DisablePlayerLabel();
+    //    }
+    //}
 
     
 
-    public void FreezeAllPlayers()
-    {
-        for (int playerIndex = 0; playerIndex < PlayerInput.all.Count; playerIndex++)
-        {
-            PlayerInput.GetPlayerByIndex(playerIndex).DeactivateInput();
-        }
-        Debug.Log("freeze all players");
-    }
+    //public void FreezeAllPlayers()
+    //{
+    //    for (int playerIndex = 0; playerIndex < PlayerInput.all.Count; playerIndex++)
+    //    {
+    //        PlayerInput.GetPlayerByIndex(playerIndex).DeactivateInput();
+    //    }
+    //    Debug.Log("freeze all players");
+    //}
 
-    public void UnfreezeAllPlayers()
-    {
-        for (int playerIndex = 0; playerIndex < PlayerInput.all.Count; playerIndex++)
-        {
-            PlayerInput.GetPlayerByIndex(playerIndex).ActivateInput();
-        }
-        Debug.Log("Unfreeze all players");
-    }
+    //public void UnfreezeAllPlayers()
+    //{
+    //    for (int playerIndex = 0; playerIndex < PlayerInput.all.Count; playerIndex++)
+    //    {
+    //        PlayerInput.GetPlayerByIndex(playerIndex).ActivateInput();
+    //    }
+    //    Debug.Log("Unfreeze all players");
+    //}
 
     public void ResetGameRoundSettings()
     {
@@ -115,48 +119,21 @@ public class GameSession : MonoBehaviour
 
 
     private void Awake()//singleton for gamesession
-    {
-        StartCoroutine(StartCountdownTimer(countdownStartingNumber, countdownDuration));
+    {        
         int numGameSessions = FindObjectsOfType<GameSession>().Length;
         if (numGameSessions > 1) //restart level
         {           
             Debug.Log("destroy old game session and create another");            
-            Destroy(gameObject);
-            
+            Destroy(gameObject);           
         }
         else //restart game
         {
             Debug.Log("create new game session");//when 1st time startup
             DontDestroyOnLoad(gameObject);
-
         }
         
     }
 
-    
-    //public int getRemainingLife()
-    //{
-    //    return remainingLife;
-    //}
-    //public void MinusLife()
-    //{
-    //    remainingLife--;
-    //    if (onLifeChange != null)
-    //    {
-    //        onLifeChange();
-    //    }
-    //    if (remainingLife > 0) 
-    //    {
-    //        Debug.Log("level resetting");
-    //        Debug.Log("remaining health: " + remainingLife);
-    //        StartCoroutine(ResetLevelCoroutine());
-    //    }
-    //    else 
-    //    {
-    //        Debug.Log("game resetting, back to level 1");
-    //        StartCoroutine(ResetGameCoroutine());
-    //    }
-    //}
 
     public void PlayerDeath()//edit
     {
@@ -183,18 +160,6 @@ public class GameSession : MonoBehaviour
     public void ResetLevel()
     {
         StartCoroutine(ResetLevelCoroutine());
-        //Debug.Log("Num players: " + PlayerInput.all.Count);
-        //Debug.Log("level resetting");
-        ////StartCoroutine(ResetLevelCoroutine());
-        //int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-
-        ////remove all player UI hud. //P1,P2,P3,P4
-        //gameObject.transform.GetChild(0).GetChild(0).gameObject.SetActive(false);
-        //gameObject.transform.GetChild(0).GetChild(1).gameObject.SetActive(false);
-        //gameObject.transform.GetChild(0).GetChild(2).gameObject.SetActive(false);
-        //gameObject.transform.GetChild(0).GetChild(3).gameObject.SetActive(false);
-
-        //SceneManager.LoadScene(currentSceneIndex);
     }
 
     IEnumerator ResetLevelCoroutine()//edit
@@ -207,19 +172,16 @@ public class GameSession : MonoBehaviour
         //StartCoroutine(ResetLevelCoroutine());
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
 
-        //remove all player UI hud. //P1,P2,P3,P4
-        //gameObject.transform.GetChild(0).GetChild(0).gameObject.SetActive(false);
-        //gameObject.transform.GetChild(0).GetChild(1).gameObject.SetActive(false);
-        //gameObject.transform.GetChild(0).GetChild(2).gameObject.SetActive(false);
-        //gameObject.transform.GetChild(0).GetChild(3).gameObject.SetActive(false);
+
         yield return new WaitForSeconds(levelResetDelay);
         //start countdown timer for next round
         StartCoroutine(StartCountdownTimer(countdownStartingNumber, countdownDuration));
         gameObject.transform.GetChild(0).GetChild(5).gameObject.SetActive(false);
         //reset the game settings for next round
         ResetGameRoundSettings();
-        //StartCoroutine(StartCountdownTimer(countdownStartingNumber, countdownDuration));
         SceneManager.LoadScene(currentSceneIndex);
+        //start countdown timer for next round
+        //StartCoroutine(StartCountdownTimer(countdownStartingNumber, countdownDuration));
     }
 
     public void ResetGame()
@@ -227,21 +189,6 @@ public class GameSession : MonoBehaviour
         StartCoroutine(ResetGameCoroutine());
     }
 
-    //IEnumerator ResetLevelCoroutine()
-    //{      
-    //    yield return new WaitForSeconds(levelResetDelay);
-    //    //Debug.Log("Num players: " + PlayerInput.all.Count);
-
-    //    int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-
-    //    //remove all player UI hud. //P1,P2,P3,P4
-    //    gameObject.transform.GetChild(0).GetChild(0).gameObject.SetActive(false);
-    //    gameObject.transform.GetChild(0).GetChild(1).gameObject.SetActive(false);
-    //    gameObject.transform.GetChild(0).GetChild(2).gameObject.SetActive(false);
-    //    gameObject.transform.GetChild(0).GetChild(3).gameObject.SetActive(false);
-
-    //    SceneManager.LoadScene(currentSceneIndex);
-    //}
 
     IEnumerator ResetGameCoroutine() //go back to level 1, reset everything
     {

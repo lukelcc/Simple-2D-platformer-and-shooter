@@ -44,7 +44,14 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
-        
+        StartCoroutine(TemporaryFreezePlayer(FindObjectOfType<GameSession>().countdownDuration));
+    }
+
+    IEnumerator TemporaryFreezePlayer(float duration)
+    {
+        GetComponent<PlayerInput>().DeactivateInput();
+        yield return new WaitForSeconds(duration);
+        GetComponent<PlayerInput>().ActivateInput();
     }
     //private void Die() //make class dead or alive - function
     //{

@@ -25,7 +25,7 @@ public abstract class GunFireMode : MonoBehaviour
 
     [SerializeField] WeaponClass weaponClass;
     //[SerializeField][Range(1, 10)] private int spawnChance=5;
-    [SerializeField][Range(1, 5)] private int weaponTier = 1;
+    //[SerializeField][Range(1, 5)] private int weaponTier = 1;
     [SerializeField] private int magSize = 30;//bullets in magazine
     [SerializeField] private float firingRate = .5f;//rate of fire, cooldown between shots
     [SerializeField] private float spread = 2;//bullet spread  

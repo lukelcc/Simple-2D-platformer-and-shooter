@@ -102,9 +102,9 @@ public class PlayerMortality : MonoBehaviour
     //    _label.gameObject.SetActive(false);
     //}
 
-    public void DisablePlayerLabel()
+    IEnumerator DisablePlayerLabel(float playerLabelDuration)
     {
-        //StartCoroutine(DestroyPlayerLabelCoroutine(delay));
+        yield return new WaitForSeconds(playerLabelDuration);
         _label.gameObject.SetActive(false);
     }
 
@@ -153,9 +153,8 @@ public class PlayerMortality : MonoBehaviour
         //GetComponent<MeshRenderer>().sortingLayerName = "Player";
         var r = playerLabel.GetComponent<MeshRenderer>();
         if (r != null) r.sortingLayerName = "Player";
-
-        //DestroyPlayerLabel(2);
-        //go.SetActive(false); // hidden by default until ShowLabel(true)
+        //Remove player label after the countdown
+        StartCoroutine(DisablePlayerLabel(FindObjectOfType<GameSession>().playerLabelDuration));        
     }
 
     // ?? helpers ???????????????????????????????????????????????????
@@ -289,7 +288,6 @@ public class PlayerMortality : MonoBehaviour
         playerUIObject.GetComponent<PlayerStats>().resetWeaponAndAmmo();//edit
         playerUIObject.GetComponentInChildren<HealthBar>().SetMaxHp(maxHp);
         playerUIObject.SetActive(false);
-        //StartCoroutine(TemporaryDisablePlayerMovementAndVisibility());
         Dismemberment();
         //Debug.Log("Player: " + gameObject.name + " died");
     }
@@ -313,63 +311,6 @@ public class PlayerMortality : MonoBehaviour
             rb.AddForce(yeetDirection * yeetForce, ForceMode2D.Impulse);
             rb.AddTorque(rotatingSpeed, ForceMode2D.Impulse);
         }
-    }
-
-    private IEnumerator TemporaryDisablePlayerMovementAndVisibility()//Player die, temporary disabled, reset health//edit
-    {
-
-        //disable player controls
-        //GetComponent<PlayerMovement>().enabled = false;
-        GetComponent<PlayerInput>().DeactivateInput();
-
-        //loss all ammo and gun
-        //GetComponent<Shoot>().ammoLeft = 0;
-        transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<SpriteRenderer>().enabled = false;//disable gun sprite renderer
-
-
-        //disable sprite renderer
-        gameObject.GetComponent<SpriteRenderer>().enabled=false;      
-        transform.GetChild(0).GetChild(0).GetComponent<SpriteRenderer>().enabled = false;//head
-        transform.GetChild(0).GetChild(1).GetComponent<SpriteRenderer>().enabled = false;//grip
-
-        //disable collider
-        gameObject.GetComponent<CapsuleCollider2D>().enabled = false;
-        gameObject.GetComponent<BoxCollider2D>().enabled = false;
-
-        //disable rigid body
-        gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-        gameObject.GetComponent<Rigidbody2D>().simulated = false;
-
-        //destroy gun
-        //Destroy(transform.GetChild(0).GetChild(1).GetChild(0).gameObject);
-
-        //GetComponent<SpriteRenderer>().color = Color.red;
-
-        yield return new WaitForSeconds(controlDisablePeriod);
-
-        //GetComponent<PlayerMovement>().enabled = true;
-        //enable sprite renderer
-        gameObject.GetComponent<SpriteRenderer>().enabled = true;
-        transform.GetChild(0).GetChild(0).GetComponent<SpriteRenderer>().enabled = true;//head
-        transform.GetChild(0).GetChild(1).GetComponent<SpriteRenderer>().enabled = true;//grip
-
-        //enable collider
-        gameObject.GetComponent<CapsuleCollider2D>().enabled = true;
-        gameObject.GetComponent<BoxCollider2D>().enabled = true;
-
-        //enable rigid body
-        gameObject.GetComponent<Rigidbody2D>().simulated = true;
-
-        //enable player controls
-        GetComponent<PlayerInput>().ActivateInput();
-
-        playerUIObject.SetActive(true);
-
-        //loss all ammo and gun
-        //GetComponent<Shoot>().ammoLeft = 0;
-        transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<SpriteRenderer>().enabled = true;//enable gun sprite renderer
-
-        currentHp = maxHp;
     }
 
 }

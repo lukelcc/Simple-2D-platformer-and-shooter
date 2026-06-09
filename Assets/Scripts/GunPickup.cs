@@ -18,7 +18,7 @@ public class GunPickup : MonoBehaviour
     [SerializeField] public float recoilForce = 1f;
     [SerializeField] public float reloadTime = 1f;
     [SerializeField] AudioClip shootSound;
-    [SerializeField][Range(0, 1)] float shootSoundVolume = 0.25f;
+    //[SerializeField][Range(0, 1)] float shootSoundVolume = 0.25f;
 
     private Transform grip;
     Vector3 mouseCursorPos;
