@@ -81,6 +81,8 @@ public class PlayerMortality : MonoBehaviour
         gameObject.transform.GetChild(0).GetChild(1).GetComponent<SpriteRenderer>().color = originaSpriteColor;//P2
         gameObject.transform.GetChild(0).GetChild(2).GetComponent<SpriteRenderer>().color = originaSpriteColor;//P3
         gameObject.transform.GetChild(0).GetChild(3).GetComponent<SpriteRenderer>().color = originaSpriteColor;//P4
+        GetComponent<PlayerAim>().SetCrosshairColor(originaSpriteColor);
+
         //HpBar.SetMaxHp(maxHp);
         //initialize hp bar to full hlp
         playerUIObject.GetComponentInChildren<HealthBar>().SetMaxHp(maxHp);

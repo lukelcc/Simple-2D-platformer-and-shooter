@@ -11,6 +11,10 @@ public class Crosshair : MonoBehaviour
         Cursor.visible = false;
     }
 
+    private void Start()
+    {
+        //Crosshair.transform.localPosition = new Vector3(CrosshairDistance, Crosshair.transform.localPosition.y, Crosshair.transform.localPosition.z);
+    }
     // Update is called once per frame
     void Update()
     {      

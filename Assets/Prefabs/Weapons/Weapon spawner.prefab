@@ -60,11 +60,13 @@ MonoBehaviour:
     weaponPrefabList:
     - {fileID: 3321224608118223430, guid: 2e20835ecbcad6e4fabe124fa8a180f9, type: 3}
     - {fileID: 6142998403995951867, guid: 5fc246916473fb04589a12dcbacfb0c2, type: 3}
+    - {fileID: 5707201079076548601, guid: f2965fed8f238f24a8fc9ecb9da26b69, type: 3}
     - {fileID: 7221132957625896090, guid: af6958794f79ad94ca0bec913276d54b, type: 3}
     - {fileID: 560045844771466505, guid: 557ef301474bd3445b8abf0a4308c01f, type: 3}
     - {fileID: 289405310073630685, guid: 254106bba3ec0d7468365b6b3c2dd9b2, type: 3}
     - {fileID: 3645296013350840552, guid: d2692875814875f4ba43f49937174fd2, type: 3}
     - {fileID: 9082762069785658138, guid: 0cfabd3285ac771488120b7479571f53, type: 3}
+    - {fileID: 7027934478787345174, guid: 0f64305cbdf3d4449ac4d3b2e710cd10, type: 3}
     spawnWeight: 8
   - tier: 3
     weaponPrefabList:
@@ -76,6 +78,7 @@ MonoBehaviour:
     - {fileID: 1989361346343171787, guid: abc251f3843f6534dab623c78367e888, type: 3}
     - {fileID: 4393863489788355940, guid: 72619a807a565e442ba18ac7b5fef541, type: 3}
     - {fileID: 4289462154970513862, guid: 99ffe587933848e45ba270f16afe5b85, type: 3}
+    - {fileID: 9021157892733469111, guid: a82f2944c0ebe8c46b130941ab3ac58a, type: 3}
     spawnWeight: 5
   - tier: 4
     weaponPrefabList:

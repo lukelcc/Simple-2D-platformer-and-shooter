@@ -6,12 +6,16 @@ using UnityEngine.InputSystem;
 public class PlayerAim : MonoBehaviour
 {
     private Transform aimOrigin;
+    //private Transform crosshair;
     Vector3 mouseCursorPos;
 
     [SerializeField] GameObject ObjectsToRotate;
+    [SerializeField] GameObject Crosshair;
+    [SerializeField] private float CrosshairMaxDistance = 7f;
+    [SerializeField] private float CrosshairMinDistance = 3f;
+    //[SerializeField] bool inverseCrosshairDistance = true;
 
     //controller aim
-    //[SerializeField] public GameObject crosshair;
     private Vector2 aimDirection;
 
     private Gamepad currentGamepad;
@@ -22,10 +26,23 @@ public class PlayerAim : MonoBehaviour
     {
         //aimOrigin = transform.Find("HeadAndGun");
         aimOrigin = ObjectsToRotate.transform;
+        
     }
+
+    public void SetCrosshairColor(Color crosshairColor)
+    {
+        Crosshair.GetComponent<SpriteRenderer>().color = crosshairColor;
+    }
+
+    private void SetCrosshairDistance(float distance)
+    {
+        Crosshair.transform.localPosition = new Vector3(distance, Crosshair.transform.localPosition.y, Crosshair.transform.localPosition.z);
+    }
+
 
     private void Start()
     {
+        SetCrosshairDistance(CrosshairMinDistance);
         //to avoid multiple controller conflict //edit
         var playerInput = GetComponent<PlayerInput>();
         if (playerInput != null && playerInput.devices.Count > 0)
@@ -47,6 +64,7 @@ public class PlayerAim : MonoBehaviour
         }
     }
 
+
     public Vector2 getAimDirection()
     {
         return aimDirection;
@@ -55,8 +73,23 @@ public class PlayerAim : MonoBehaviour
 
     void OnAim(InputValue value) // getting controller aim stick direction
     {
-        if(value.Get<Vector2>() != Vector2.zero)//dont include stick move back
+        if (value.Get<Vector2>() != Vector2.zero)//dont include stick move back
+        {
             aimDirection = value.Get<Vector2>();
+            SetCrosshairDistance(CrosshairMaxDistance);
+            //if (inverseCrosshairDistance)
+            //    SetCrosshairDistance(CrosshairMinDistance);
+            //else
+            //    SetCrosshairDistance(CrosshairMaxDistance);
+        }
+        else
+        {
+            SetCrosshairDistance(CrosshairMinDistance);
+            //if (inverseCrosshairDistance)
+            //    SetCrosshairDistance(CrosshairMaxDistance);
+            //else
+            //    SetCrosshairDistance(CrosshairMinDistance);
+        }
     }
 
     private void Aim()
@@ -98,5 +131,6 @@ public class PlayerAim : MonoBehaviour
     private void Update()
     {
         Aim();
+        Crosshair.transform.rotation = Quaternion.identity;
     }
 }
