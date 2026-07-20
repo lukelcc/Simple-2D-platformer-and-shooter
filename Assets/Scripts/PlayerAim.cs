@@ -1,3 +1,4 @@
+using Newtonsoft.Json.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,6 +16,11 @@ public class PlayerAim : MonoBehaviour
     [SerializeField] private float CrosshairMinDistance = 3f;
     //[SerializeField] bool inverseCrosshairDistance = true;
 
+    //crosshair within camera 
+    [SerializeField] private Camera mainCamera;
+    [SerializeField] private float edgePadding = 1f;
+
+
     //controller aim
     private Vector2 aimDirection;
 
@@ -29,6 +35,38 @@ public class PlayerAim : MonoBehaviour
         
     }
 
+    private Vector3 ClampToCameraView(Vector3 worldPos)
+    {
+        float camHeight = mainCamera.orthographicSize;
+
+        //float camWidth = camHeight * mainCamera.aspect;
+        float camWidth = camHeight * (float)(16.0/9.0);
+
+        Vector3 camPos = mainCamera.transform.position;
+
+        worldPos.x = Mathf.Clamp(worldPos.x, camPos.x - camWidth + edgePadding, camPos.x + camWidth - edgePadding);
+        worldPos.y = Mathf.Clamp(worldPos.y, camPos.y - camHeight + edgePadding, camPos.y + camHeight - edgePadding);
+        return worldPos;
+    }
+
+    //private Vector3 ClampToCameraView(Vector3 worldPos)
+    //{
+    //    float camHeight = mainCamera.orthographicSize;
+    //    float camWidth = camHeight * mainCamera.aspect;
+    //    Vector3 camPos = mainCamera.transform.position;
+
+    //    float minX = camPos.x - camWidth + edgePadding;
+    //    float maxX = camPos.x + camWidth - edgePadding;
+    //    float minY = camPos.y - camHeight + edgePadding;
+    //    float maxY = camPos.y + camHeight - edgePadding;
+
+    //    worldPos.x = Mathf.Clamp(worldPos.x, minX, maxX);
+    //    worldPos.y = Mathf.Clamp(worldPos.y, minY, maxY);
+
+    //    return worldPos;
+    //}
+
+
     public void SetCrosshairColor(Color crosshairColor)
     {
         Crosshair.GetComponent<SpriteRenderer>().color = crosshairColor;
@@ -36,8 +74,17 @@ public class PlayerAim : MonoBehaviour
 
     private void SetCrosshairDistance(float distance)
     {
-        Crosshair.transform.localPosition = new Vector3(distance, Crosshair.transform.localPosition.y, Crosshair.transform.localPosition.z);
+        //Crosshair.transform.localPosition = new Vector3(distance, Crosshair.transform.localPosition.y, Crosshair.transform.localPosition.z);
+
+        //clamp crosshair within camera view bound
+        //Vector3 clampedWorldPos = ClampToCameraView(Crosshair.transform.position);
+        //Crosshair.transform.position = clampedWorldPos;
+        Vector3 offset = getAimDirection().normalized * distance;
+        Vector3 targetPos = transform.position + offset;
+        Crosshair.transform.position = ClampToCameraView(targetPos);
     }
+
+
 
 
     private void Start()

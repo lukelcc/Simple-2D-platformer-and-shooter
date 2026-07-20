@@ -503,6 +503,8 @@ MonoBehaviour:
   Crosshair: {fileID: 3128264530307719611}
   CrosshairMaxDistance: 8
   CrosshairMinDistance: 4
+  mainCamera: {fileID: 6928664561693233635, guid: 75ba9857856c1bd4cb2103d659b5f346, type: 3}
+  edgePadding: 0.5
 --- !u!114 &1325947617389710758
 MonoBehaviour:
   m_ObjectHideFlags: 0
