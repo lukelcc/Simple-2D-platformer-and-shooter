@@ -107,6 +107,10 @@ PrefabInstance:
       propertyPath: ProjectilePrefab
       value: 
       objectReference: {fileID: 8523352496917372587, guid: 63cf197a36d449f469d41320bd164d71, type: 3}
+    - target: {fileID: 1963227350406642701, guid: c55d90cd23635934aae3921dd6820638, type: 3}
+      propertyPath: crosshairDistance
+      value: 7.5
+      objectReference: {fileID: 0}
     - target: {fileID: 8373483265800194567, guid: c55d90cd23635934aae3921dd6820638, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.752

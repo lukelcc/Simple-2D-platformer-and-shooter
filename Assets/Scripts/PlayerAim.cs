@@ -1,6 +1,7 @@
 using Newtonsoft.Json.Linq;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -12,14 +13,14 @@ public class PlayerAim : MonoBehaviour
 
     [SerializeField] GameObject ObjectsToRotate;
     [SerializeField] GameObject Crosshair;
-    [SerializeField] private float CrosshairMaxDistance = 7f;
-    [SerializeField] private float CrosshairMinDistance = 3f;
+    [SerializeField] private float CrosshairDistance = 5f;
+    //[SerializeField] private float CrosshairMinDistance = 3f;
     //[SerializeField] bool inverseCrosshairDistance = true;
 
     //crosshair within camera 
     [SerializeField] private Camera mainCamera;
     [SerializeField] private float edgePadding = 1f;
-
+    //private bool isAimStickUsed = false;
 
     //controller aim
     private Vector2 aimDirection;
@@ -33,6 +34,11 @@ public class PlayerAim : MonoBehaviour
         //aimOrigin = transform.Find("HeadAndGun");
         aimOrigin = ObjectsToRotate.transform;
         
+    }
+
+    public void changeCrosshairDistance(float newCrosshairDistance)
+    {
+        CrosshairDistance = newCrosshairDistance;
     }
 
     private Vector3 ClampToCameraView(Vector3 worldPos)
@@ -89,7 +95,7 @@ public class PlayerAim : MonoBehaviour
 
     private void Start()
     {
-        SetCrosshairDistance(CrosshairMinDistance);
+        SetCrosshairDistance(CrosshairDistance);
         //to avoid multiple controller conflict //edit
         var playerInput = GetComponent<PlayerInput>();
         if (playerInput != null && playerInput.devices.Count > 0)
@@ -122,21 +128,23 @@ public class PlayerAim : MonoBehaviour
     {
         if (value.Get<Vector2>() != Vector2.zero)//dont include stick move back
         {
+            //isAimStickUsed = true;
             aimDirection = value.Get<Vector2>();
-            SetCrosshairDistance(CrosshairMaxDistance);
+            SetCrosshairDistance(CrosshairDistance);
             //if (inverseCrosshairDistance)
             //    SetCrosshairDistance(CrosshairMinDistance);
             //else
             //    SetCrosshairDistance(CrosshairMaxDistance);
         }
-        else
-        {
-            SetCrosshairDistance(CrosshairMinDistance);
-            //if (inverseCrosshairDistance)
-            //    SetCrosshairDistance(CrosshairMaxDistance);
-            //else
-            //    SetCrosshairDistance(CrosshairMinDistance);
-        }
+        //else
+        //{
+        //    isAimStickUsed = false;
+        //    SetCrosshairDistance(CrosshairMinDistance);
+        //    //if (inverseCrosshairDistance)
+        //    //    SetCrosshairDistance(CrosshairMaxDistance);
+        //    //else
+        //    //    SetCrosshairDistance(CrosshairMinDistance);
+        //}
     }
 
     private void Aim()
@@ -179,5 +187,9 @@ public class PlayerAim : MonoBehaviour
     {
         Aim();
         Crosshair.transform.rotation = Quaternion.identity;
+        SetCrosshairDistance(CrosshairDistance);
+        //if (!isAimStickUsed) 
+        //    SetCrosshairDistance(CrosshairMinDistance);
+
     }
 }

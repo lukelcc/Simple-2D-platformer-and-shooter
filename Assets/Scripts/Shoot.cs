@@ -33,6 +33,7 @@ public class Shoot : MonoBehaviour
     public bool isBurst = false;
     public float burstFiringRate = .05f;//burst firing rate
 
+    public int numBounce = 0;//bullet bounce on wall
     [SerializeField] public AudioClip gunShotSFX;
     [SerializeField][Range(0, 1)] public float gunShotSFXVol = 0.7f;
     [SerializeField] public AudioClip gunCockSFX;
@@ -262,6 +263,8 @@ public class Shoot : MonoBehaviour
         projectile.transform.rotation = firePoint.rotation;
              
         projectile.setProjectileDamage(damage);
+        projectile.setProjectileSpeed(projectileSpeed);
+        projectile.setNumBounce(numBounce);
         //Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
         //rb.AddForce(firePoint.right * projectileSpeed, ForceMode2D.Impulse);
         projectile.GetComponent<Rigidbody2D>().velocity = firePoint.right * projectileSpeed;

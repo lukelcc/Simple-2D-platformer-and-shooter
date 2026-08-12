@@ -501,8 +501,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ObjectsToRotate: {fileID: 6793246793280021366}
   Crosshair: {fileID: 3128264530307719611}
-  CrosshairMaxDistance: 8
-  CrosshairMinDistance: 4
+  CrosshairDistance: 3
   mainCamera: {fileID: 6928664561693233635, guid: 75ba9857856c1bd4cb2103d659b5f346, type: 3}
   edgePadding: 0.5
 --- !u!114 &1325947617389710758
@@ -558,6 +557,7 @@ MonoBehaviour:
   fullAutoMode: 0
   isBurst: 0
   burstFiringRate: 0.05
+  numBounce: 3
   gunShotSFX: {fileID: 0}
   gunShotSFXVol: 0.7
   gunCockSFX: {fileID: 0}

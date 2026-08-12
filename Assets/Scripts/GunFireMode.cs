@@ -33,6 +33,7 @@ public abstract class GunFireMode : MonoBehaviour
     [SerializeField] private Projectile ProjectilePrefab;
     [SerializeField] private float projectileSpeed = 30;//speed of bullet
     //[SerializeField] public float reloadTime = 1;
+    [SerializeField] private float crosshairDistance = 10;
     [SerializeField] private SpriteRenderer normalSprite;
     [SerializeField] private SpriteRenderer pickupSprite;
     
@@ -155,6 +156,7 @@ public abstract class GunFireMode : MonoBehaviour
         playerObject.GetComponent<Shoot>().firePoint = firePoint;
         playerObject.GetComponent<Shoot>().firingRate = firingRate;
         playerObject.GetComponent<Shoot>().projectileSpeed = projectileSpeed;
+        playerObject.GetComponent<PlayerAim>().changeCrosshairDistance(crosshairDistance);
         playerObject.GetComponent<Shoot>().damage = damage;
         playerObject.GetComponent<Shoot>().magSize = magSize;
         playerObject.GetComponent<Shoot>().spread = spread;

@@ -103,7 +103,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 282952e306acc83488dec25389aba109, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
@@ -121,6 +121,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectileDamage: 1
+  projectileSpeed: 30
   bulletImpactFx: {fileID: 1034014802230704666, guid: 8c949ccb724a4c644ac2621ee710613d, type: 3}
 --- !u!58 &4027274636991885953
 CircleCollider2D:
