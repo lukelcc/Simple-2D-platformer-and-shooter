@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static UnityEngine.UI.Image;
 
 public class PlayerAim : MonoBehaviour
 {
@@ -44,7 +45,6 @@ public class PlayerAim : MonoBehaviour
     private Vector3 ClampToCameraView(Vector3 worldPos)
     {
         float camHeight = mainCamera.orthographicSize;
-
         //float camWidth = camHeight * mainCamera.aspect;
         float camWidth = camHeight * (float)(16.0/9.0);
 
@@ -55,22 +55,46 @@ public class PlayerAim : MonoBehaviour
         return worldPos;
     }
 
-    //private Vector3 ClampToCameraView(Vector3 worldPos)
-    //{
-    //    float camHeight = mainCamera.orthographicSize;
-    //    float camWidth = camHeight * mainCamera.aspect;
-    //    Vector3 camPos = mainCamera.transform.position;
+    /// <summary>
+    /// Finds where the ray from origin -> target intersects the camera's viewport bounds,
+    /// preserving direction. If target is already inside bounds, returns target unchanged.
+    /// </summary>
+    private Vector3 ClampAlongRayToCameraView(Vector3 origin, Vector3 target)
+    {
+        float camHeight = mainCamera.orthographicSize;
+        //float camWidth = camHeight * mainCamera.aspect;
+        float camWidth = camHeight * (float)(16.0 / 9.0);
 
-    //    float minX = camPos.x - camWidth + edgePadding;
-    //    float maxX = camPos.x + camWidth - edgePadding;
-    //    float minY = camPos.y - camHeight + edgePadding;
-    //    float maxY = camPos.y + camHeight - edgePadding;
+        Vector3 camPos = mainCamera.transform.position;
 
-    //    worldPos.x = Mathf.Clamp(worldPos.x, minX, maxX);
-    //    worldPos.y = Mathf.Clamp(worldPos.y, minY, maxY);
+        float minX = camPos.x - camWidth + edgePadding;
+        float maxX = camPos.x + camWidth - edgePadding;
+        float minY = camPos.y - camHeight + edgePadding;
+        float maxY = camPos.y + camHeight - edgePadding;
 
-    //    return worldPos;
-    //}
+        Vector3 dir = target - origin;
+
+        float t = 1f; // t=1 means "use the full target distance" (i.e. no clamp needed)
+
+        if (Mathf.Abs(dir.x) > 0.0001f)
+        {
+            float tx1 = (minX - origin.x) / dir.x;
+            float tx2 = (maxX - origin.x) / dir.x;
+            if (tx1 > 0f) t = Mathf.Min(t, tx1);
+            if (tx2 > 0f) t = Mathf.Min(t, tx2);
+        }
+
+        if (Mathf.Abs(dir.y) > 0.0001f)
+        {
+            float ty1 = (minY - origin.y) / dir.y;
+            float ty2 = (maxY - origin.y) / dir.y;
+            if (ty1 > 0f) t = Mathf.Min(t, ty1);
+            if (ty2 > 0f) t = Mathf.Min(t, ty2);
+        }
+
+        t = Mathf.Clamp01(t);
+        return origin + dir * t;
+    }
 
 
     public void SetCrosshairColor(Color crosshairColor)
@@ -87,7 +111,8 @@ public class PlayerAim : MonoBehaviour
         //Crosshair.transform.position = clampedWorldPos;
         Vector3 offset = getAimDirection().normalized * distance;
         Vector3 targetPos = transform.position + offset;
-        Crosshair.transform.position = ClampToCameraView(targetPos);
+        //Crosshair.transform.position = ClampToCameraView(targetPos);
+        Crosshair.transform.position = ClampAlongRayToCameraView(transform.position, targetPos);
     }
 
 
@@ -181,7 +206,6 @@ public class PlayerAim : MonoBehaviour
     //{
     //    crosshair.transform.localPosition=movement
     //}
-
 
     private void Update()
     {

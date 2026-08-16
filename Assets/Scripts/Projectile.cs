@@ -76,9 +76,9 @@ public class Projectile : MonoBehaviour
         if (collision.gameObject.GetComponent<Projectile>())//the bullet cannot hit another bullet
             return;
 
-        if (collision.gameObject.layer == 6 && numBounce > 0)//bullet bounce
+        if ((collision.gameObject.layer == 6 || collision.gameObject.layer == 10) && numBounce > 0)//bullet bounce //ground layer = 6
         {
-            --numBounce;
+            numBounce--;
             return;
         }
       

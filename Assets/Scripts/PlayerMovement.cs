@@ -6,11 +6,19 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] float playerRunSpeed = 5f;
-    [SerializeField] float jumpSpeed = 10f;
-    [SerializeField] float climbLadderSpeed = 5f;
-    [SerializeField] float gravityScaleAtStart = 1f;
-    [SerializeField] float bouncingForce = 2f;
+    [Header("Default movement settings")]
+    [SerializeField] private float defaultRunSpeed = 6f;
+    [SerializeField] private float defaultJumpSpeed = 12f;
+    [SerializeField] private float defaultClimbLadderSpeed = 5f;
+    private float defaultGravityScaleAtStart = 1f;
+    [SerializeField] private float defaultBouncingForce = 20f;
+
+    [Header("In-game Movement settings")]
+    [SerializeField] private float runSpeed = 6f;
+    [SerializeField] private float jumpSpeed = 12f;
+    [SerializeField] private float climbLadderSpeed = 5f;
+    private float gravityScaleAtStart = 1f;
+    [SerializeField] private float bouncingForce = 20f;
 
     private Vector2 moveInput;
 
@@ -20,7 +28,22 @@ public class PlayerMovement : MonoBehaviour
     //boxCollider = feet
     //capsuleCollider = body
 
+    public void setPlayerDefaultMovementValues()
+    {
+        runSpeed = defaultRunSpeed;
+        jumpSpeed = defaultJumpSpeed;
+        climbLadderSpeed = defaultClimbLadderSpeed;
+        //gravityScaleAtStart = defaultGravityScaleAtStart;
+        bouncingForce = defaultBouncingForce;
+    }
 
+    public void changePlayerMovementFactor(float factor) //heavier weapon = slower movement
+    {
+        runSpeed=defaultRunSpeed*factor;
+        jumpSpeed=defaultJumpSpeed*factor; 
+        climbLadderSpeed=defaultClimbLadderSpeed*factor;
+        bouncingForce=defaultBouncingForce*factor;
+    }
 
     public enum gameObjectTag
     {
@@ -44,6 +67,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
+        setPlayerDefaultMovementValues();
         StartCoroutine(TemporaryFreezePlayer(FindObjectOfType<GameSession>().countdownDuration));
     }
 
@@ -107,7 +131,7 @@ public class PlayerMovement : MonoBehaviour
     void Run()
     {
         //set transformation
-        Vector2 playerVelocity = new Vector2(moveInput.x*playerRunSpeed, GetComponent<Rigidbody2D>().velocity.y);
+        Vector2 playerVelocity = new Vector2(moveInput.x*runSpeed, GetComponent<Rigidbody2D>().velocity.y);
         GetComponent<Rigidbody2D>().velocity = playerVelocity;
 
         //change animation to running only if the player is moving left/right

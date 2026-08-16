@@ -22,7 +22,7 @@ public class Shoot : MonoBehaviour
     public Transform firePoint;
     public float firingRate = 1f;//rate of fire(cooldown between shots)
     public float projectileSpeed = 20f;//bullet speed
-    public bool bigBullet = false;
+    //public bool bigBullet = false;
     public int damage = 1;//damage per shot
     public int ammoLeft = 0;//bullets left in magazine
     public int magSize = 0;//magazine capacity

@@ -482,10 +482,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1406e7a282148804285f26a76e24b4d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerRunSpeed: 6
+  defaultRunSpeed: 9
+  defaultJumpSpeed: 16
+  defaultClimbLadderSpeed: 8
+  defaultBouncingForce: 24
+  runSpeed: 6
   jumpSpeed: 12
   climbLadderSpeed: 5
-  gravityScaleAtStart: 1
   bouncingForce: 20
 --- !u!114 &1588455278789777933
 MonoBehaviour:
@@ -503,7 +506,7 @@ MonoBehaviour:
   Crosshair: {fileID: 3128264530307719611}
   CrosshairDistance: 3
   mainCamera: {fileID: 6928664561693233635, guid: 75ba9857856c1bd4cb2103d659b5f346, type: 3}
-  edgePadding: 0.5
+  edgePadding: 1
 --- !u!114 &1325947617389710758
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -548,7 +551,6 @@ MonoBehaviour:
   firePoint: {fileID: 2505253781732317019}
   firingRate: 1
   projectileSpeed: 20
-  bigBullet: 0
   damage: 1
   ammoLeft: 0
   magSize: 0
@@ -557,7 +559,7 @@ MonoBehaviour:
   fullAutoMode: 0
   isBurst: 0
   burstFiringRate: 0.05
-  numBounce: 3
+  numBounce: 0
   gunShotSFX: {fileID: 0}
   gunShotSFXVol: 0.7
   gunCockSFX: {fileID: 0}

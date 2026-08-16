@@ -54,11 +54,50 @@ public abstract class GunFireMode : MonoBehaviour
     //    _LMG = 2,
     //    _SR = 1;
 
+    void setGunGrosshairDistance(WeaponClass weaponClass)//change crosshair distance: longer gun = further
+    {
+        if (weaponClass == WeaponClass.Pistol)
+            crosshairDistance = 6f;
+        else if (weaponClass == WeaponClass.SMG)
+            crosshairDistance = 7.5f;
+        else if (weaponClass == WeaponClass.Assault_rifle)
+            crosshairDistance = 10f;
+        else if (weaponClass == WeaponClass.Rifle)
+            crosshairDistance = 12f;
+        else if (weaponClass == WeaponClass.Shotgun)
+            crosshairDistance = 7.5f;
+        else if (weaponClass == WeaponClass.LMG)
+            crosshairDistance = 10f;
+        else if (weaponClass == WeaponClass.Sniper_rifle)
+            crosshairDistance = 18f;
+    }
+
+
+    void setPlayerMovementValues(WeaponClass weaponClass)//change player mobility by weapon class: heavier gun = slower
+    {
+        if (weaponClass == WeaponClass.Pistol)
+            playerObject.GetComponent<PlayerMovement>().changePlayerMovementFactor(1f);
+        else if (weaponClass == WeaponClass.SMG)
+            playerObject.GetComponent<PlayerMovement>().changePlayerMovementFactor(.95f);
+        else if (weaponClass == WeaponClass.Assault_rifle)
+            playerObject.GetComponent<PlayerMovement>().changePlayerMovementFactor(.9f);
+        else if (weaponClass == WeaponClass.Rifle)
+            playerObject.GetComponent<PlayerMovement>().changePlayerMovementFactor(.8f);
+        else if (weaponClass == WeaponClass.Shotgun)
+            playerObject.GetComponent<PlayerMovement>().changePlayerMovementFactor(.8f);
+        else if (weaponClass == WeaponClass.LMG)
+            playerObject.GetComponent<PlayerMovement>().changePlayerMovementFactor(.7f);
+        else if (weaponClass == WeaponClass.Sniper_rifle)
+            playerObject.GetComponent<PlayerMovement>().changePlayerMovementFactor(.7f);
+
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         //grip = GameObject.Find("Grip").GetComponent<Transform>();       
         firePoint = transform.GetChild(0).gameObject.transform;//set bullet spawn point
+        setGunGrosshairDistance(weaponClass);
     }
 
     public void highlightWeapon(bool isPickup)
@@ -157,6 +196,7 @@ public abstract class GunFireMode : MonoBehaviour
         playerObject.GetComponent<Shoot>().firingRate = firingRate;
         playerObject.GetComponent<Shoot>().projectileSpeed = projectileSpeed;
         playerObject.GetComponent<PlayerAim>().changeCrosshairDistance(crosshairDistance);
+        setPlayerMovementValues(weaponClass);
         playerObject.GetComponent<Shoot>().damage = damage;
         playerObject.GetComponent<Shoot>().magSize = magSize;
         playerObject.GetComponent<Shoot>().spread = spread;
