@@ -20,6 +20,10 @@ public class PlayerMovement : MonoBehaviour
     private float gravityScaleAtStart = 1f;
     [SerializeField] private float bouncingForce = 20f;
 
+    [Header("Drop down from bridge settings")]
+    [SerializeField] private float dropDuration = 1f;
+    [SerializeField] private float checkRadius = 1f;
+
     private Vector2 moveInput;
 
     Shoot shooter;
@@ -50,7 +54,8 @@ public class PlayerMovement : MonoBehaviour
         Enemy,
         Hazard,
         Ladder,
-        Bouncing
+        Bouncing,
+        Bridge
     }
 
     // Update is called once per frame
@@ -117,14 +122,17 @@ public class PlayerMovement : MonoBehaviour
         //if (!isAlive) { return; } //make class dead or alive
 
         //prevents double jumps
-        if (!GetComponent<BoxCollider2D>().IsTouchingLayers(LayerMask.GetMask("Ground")))
+        if (!GetComponent<BoxCollider2D>().IsTouchingLayers(LayerMask.GetMask("Ground")) && !GetComponent<BoxCollider2D>().IsTouchingLayers(LayerMask.GetMask("Bridge")))
         {
             return;
-        }
+        } 
+
+        //jump 
         if (value.isPressed)
         {
             GetComponent<Rigidbody2D>().velocity += new Vector2(0f, jumpSpeed);
         }
+        
     }
 
 
@@ -175,6 +183,44 @@ public class PlayerMovement : MonoBehaviour
         GetComponent<Animator>().SetBool("isClimbing", playerHasVerticalSpeedWhenClimbing);
 
     }
+
+
+    //drop down from bridge
+    private Collider2D GetPlatformBelow()
+    {
+        // Check just below the player's feet for a one-way platform
+        Vector2 checkPos = (Vector2)transform.position + Vector2.down * checkRadius;
+        return Physics2D.OverlapCircle(checkPos, checkRadius, LayerMask.GetMask(gameObjectTag.Bridge.ToString()));
+    }
+
+    private IEnumerator DropThrough(Collider2D platform)
+    {
+        Debug.Log("drop down");
+        Physics2D.IgnoreCollision(GetComponent<BoxCollider2D>(), platform, true);
+        Physics2D.IgnoreCollision(GetComponent<CapsuleCollider2D>(), platform, true);
+        yield return new WaitForSeconds(dropDuration);
+
+        // Safety: only re-enable if the object still exists (player might've left the scene, etc.)
+        if (platform != null)
+        {
+            Physics2D.IgnoreCollision(GetComponent<BoxCollider2D>(), platform, false);
+            Physics2D.IgnoreCollision(GetComponent<CapsuleCollider2D>(), platform, false);
+        }
+    }
+
+    void OnDropDown(InputValue value)
+    {
+        if(value.isPressed)
+        {
+            if(GetComponent<BoxCollider2D>().IsTouchingLayers(LayerMask.GetMask(gameObjectTag.Bridge.ToString())))
+            {
+                Collider2D platform = GetPlatformBelow();
+                if (platform != null)
+                    StartCoroutine(DropThrough(platform));
+            }
+        }
+    }
+
 
     private void Bounce()
     {

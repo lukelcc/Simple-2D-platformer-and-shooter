@@ -63,11 +63,11 @@ public abstract class GunFireMode : MonoBehaviour
         else if (weaponClass == WeaponClass.Assault_rifle)
             crosshairDistance = 10f;
         else if (weaponClass == WeaponClass.Rifle)
-            crosshairDistance = 12f;
+            crosshairDistance = 13f;
         else if (weaponClass == WeaponClass.Shotgun)
             crosshairDistance = 7.5f;
         else if (weaponClass == WeaponClass.LMG)
-            crosshairDistance = 10f;
+            crosshairDistance = 11.5f;
         else if (weaponClass == WeaponClass.Sniper_rifle)
             crosshairDistance = 18f;
     }

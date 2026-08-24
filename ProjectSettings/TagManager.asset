@@ -27,7 +27,7 @@ TagManager:
   - Crosshair
   - Projectile
   - Interactables
-  - 
+  - Bridge
   - 
   - 
   - 
@@ -55,6 +55,9 @@ TagManager:
     locked: 0
   - name: Ladder
     uniqueID: 963977683
+    locked: 0
+  - name: Bridge
+    uniqueID: 2253230987
     locked: 0
   - name: Platforms
     uniqueID: 1837495067

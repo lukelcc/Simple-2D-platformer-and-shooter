@@ -71,7 +71,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 7726689
-  m_SortingLayer: 8
+  m_SortingLayer: 9
   m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: a86599885a5660548b1893a2de72db0b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -186,7 +186,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 7726689
-  m_SortingLayer: 8
+  m_SortingLayer: 9
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: dabe6ffcbdbf78448802572520662f25, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -300,7 +300,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 7726689
-  m_SortingLayer: 8
+  m_SortingLayer: 9
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 0b9474da47c86e7479d2b266d10e94c9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -342,7 +342,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.008991241, y: -0.4052167}
+  m_Offset: {x: -0.008991241, y: -0.40251702}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -353,7 +353,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.36361313, y: 0.07189107}
+  m_Size: {x: 0.36361313, y: 0.07739043}
   m_EdgeRadius: 0
 --- !u!50 &6039000640320246377
 Rigidbody2D:
@@ -490,6 +490,8 @@ MonoBehaviour:
   jumpSpeed: 12
   climbLadderSpeed: 5
   bouncingForce: 20
+  dropDuration: 0.25
+  checkRadius: 0.25
 --- !u!114 &1588455278789777933
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -679,7 +681,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 7726689
-  m_SortingLayer: 8
+  m_SortingLayer: 9
   m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: 1528c78bf8569ef4095e23c37fc0de2f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -763,7 +765,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 7726689
-  m_SortingLayer: 8
+  m_SortingLayer: 9
   m_SortingOrder: 3
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
