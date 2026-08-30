@@ -226,17 +226,6 @@
                 },
                 {
                     "name": "",
-                    "id": "01bacd3e-6fec-47b0-9862-c2e6381ff048",
-                    "path": "<XInputController>/leftTrigger",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Fire",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "df0fc61a-c370-42c6-ba28-d216d936f4f7",
                     "path": "<XInputController>/rightTrigger",
                     "interactions": "",
@@ -282,7 +271,7 @@
                 {
                     "name": "",
                     "id": "678b64f7-f239-4510-a4c9-0d03b903b5e9",
-                    "path": "<XInputController>/buttonWest",
+                    "path": "<XInputController>/buttonNorth",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
@@ -325,11 +314,11 @@
                 },
                 {
                     "name": "",
-                    "id": "edf05952-228f-4da4-bf74-2804e9aa59a2",
-                    "path": "<Keyboard>/enter",
+                    "id": "7f183bc1-0ea8-428a-baaf-3ac7bde0c5bd",
+                    "path": "<XInputController>/buttonWest",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard&Mouse",
+                    "groups": "Gamepad",
                     "action": "Fire",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -369,11 +358,11 @@
                 },
                 {
                     "name": "",
-                    "id": "4c1a1e85-3469-4e27-a89d-7dea1c20bb1f",
-                    "path": "<XInputController>/dpad/down",
+                    "id": "8857d378-93c6-40ea-9dfa-eb7904266571",
+                    "path": "<XInputController>/leftTrigger",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Gamepad",
                     "action": "DropDown",
                     "isComposite": false,
                     "isPartOfComposite": false

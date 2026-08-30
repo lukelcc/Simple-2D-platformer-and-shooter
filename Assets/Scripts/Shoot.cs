@@ -171,13 +171,15 @@ public class Shoot : MonoBehaviour
             }
         }
         //else if (currentGamepad.rightTrigger.isPressed && firingCoroutine == null && !onCooldown)
-        else if (( currentGamepad.leftTrigger.isPressed|| currentGamepad.rightTrigger.isPressed) && firingCoroutine == null && !onCooldown)
+        else if (( currentGamepad.rightTrigger.isPressed|| currentGamepad.xButton.isPressed) && firingCoroutine == null && !onCooldown)
+        //else if (( currentGamepad.leftTrigger.isPressed|| currentGamepad.rightTrigger.isPressed) && firingCoroutine == null && !onCooldown)
         //else if (Mouse.current.leftButton.isPressed && firingCoroutine == null && !onCooldown)
         {
             firingCoroutine = StartCoroutine(FireContinouosly());           
         }
         //else if (!currentGamepad.rightTrigger.isPressed && firingCoroutine != null || ammoLeft <= 0)
-        else if (( !currentGamepad.leftTrigger.isPressed|| !currentGamepad.rightTrigger.isPressed) && firingCoroutine != null || ammoLeft <= 0)
+        else if (( !currentGamepad.rightTrigger.isPressed|| !currentGamepad.xButton.isPressed) && firingCoroutine != null || ammoLeft <= 0)
+        //else if (( !currentGamepad.leftTrigger.isPressed|| !currentGamepad.rightTrigger.isPressed) && firingCoroutine != null || ammoLeft <= 0)
         //else if (!Mouse.current.leftButton.isPressed && firingCoroutine != null || ammoLeft <= 0)
         {
             StopCoroutine(firingCoroutine);

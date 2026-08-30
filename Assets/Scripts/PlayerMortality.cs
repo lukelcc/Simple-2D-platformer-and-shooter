@@ -32,7 +32,7 @@ public class PlayerMortality : MonoBehaviour
 
 
     //player label settings
-    private Vector3 labelOffset = new Vector3(0f, 1.4f, 0f);//player label offset above sprite
+    private Vector3 labelOffset = new Vector3(0f, 1f, 0f);//player label offset above sprite
     private float labelFontSize = 10f;//label font size
     private Color labelColor;
 
@@ -66,7 +66,7 @@ public class PlayerMortality : MonoBehaviour
         else if (GetComponent<PlayerInput>().playerIndex == 2)//P3
         {
             playerUIObject = FindObjectOfType<GameSession>().gameObject.transform.GetChild(0).GetChild(2).gameObject;
-            originaSpriteColor = Color.blue;
+            originaSpriteColor = Color.cyan;
             BuildAndDisplayLabel(GetComponent<PlayerInput>().playerIndex+1, originaSpriteColor);
         }
         else if (GetComponent<PlayerInput>().playerIndex == 3)//P4

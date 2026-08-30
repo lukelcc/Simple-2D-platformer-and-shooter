@@ -195,7 +195,7 @@ public class PlayerMovement : MonoBehaviour
 
     private IEnumerator DropThrough(Collider2D platform)
     {
-        Debug.Log("drop down");
+        //Debug.Log("drop down");
         Physics2D.IgnoreCollision(GetComponent<BoxCollider2D>(), platform, true);
         Physics2D.IgnoreCollision(GetComponent<CapsuleCollider2D>(), platform, true);
         yield return new WaitForSeconds(dropDuration);
