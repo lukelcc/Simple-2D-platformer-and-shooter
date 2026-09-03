@@ -72,7 +72,7 @@ public class PlayerMortality : MonoBehaviour
         else if (GetComponent<PlayerInput>().playerIndex == 3)//P4
         {
             playerUIObject = FindObjectOfType<GameSession>().gameObject.transform.GetChild(0).GetChild(3).gameObject;
-            originaSpriteColor = Color.black;
+            originaSpriteColor = Color.yellow;
             BuildAndDisplayLabel(GetComponent<PlayerInput>().playerIndex+1, originaSpriteColor);
         }
         playerUIObject.SetActive(true);

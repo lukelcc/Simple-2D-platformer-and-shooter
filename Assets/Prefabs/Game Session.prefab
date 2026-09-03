@@ -847,6 +847,15 @@ MonoBehaviour:
   levelResetDelay: 2
   gameOverDelay: 3
   maxWins: 3
+  numPlayers: 2
+  Player1Prefab: {fileID: 5922062021152801042, guid: 224f0d9d600fdf84e812ded01b356062, type: 3}
+  P1SpawnPoint: {fileID: 7332335417953655514, guid: 1707a2c69359a6743871413fa4cb1837, type: 3}
+  Player2Prefab: {fileID: 2283713343514199186, guid: 131164287f415fc479cabf79b3bc1957, type: 3}
+  P2SpawnPoint: {fileID: 3592508626852807114, guid: 530ff2b85eb2bd54aaac85f3ae5eb373, type: 3}
+  Player3Prefab: {fileID: 5585430281498669925, guid: 0a790394767313e49ad54c2aac19cab4, type: 3}
+  P3SpawnPoint: {fileID: 5193506680020293849, guid: f0a3dedb325be5d46a2455bdb8298d25, type: 3}
+  Player4Prefab: {fileID: 3365282001456913810, guid: 2c2eeac6ba865e04b908ddae6932cdcc, type: 3}
+  P4SpawnPoint: {fileID: 2196520303086699707, guid: c7e991fe1bd6ef84798a510a88348d0e, type: 3}
   countdownStartingNumber: 3
   countdownDuration: 2
   playerLabelDuration: 5
@@ -1618,7 +1627,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1817,7 +1826,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6318756559244342432
 RectTransform:
   m_ObjectHideFlags: 0

@@ -12,6 +12,21 @@ public class GameSession : MonoBehaviour
     [SerializeField] int levelResetDelay = 3;
     [SerializeField] int gameOverDelay = 3;
     [SerializeField] int maxWins = 3;
+    [Range(2, 4)]
+    [SerializeField] int numPlayers = 2;
+    [Header("Players spawn settings")]
+    [Header("Player 1")]
+    [SerializeField] PlayerMortality Player1Prefab;
+    [SerializeField] Transform P1SpawnPoint;
+    [Header("Player 2")]
+    [SerializeField] PlayerMortality Player2Prefab;
+    [SerializeField] Transform P2SpawnPoint;
+    [Header("Player 3")]
+    [SerializeField] PlayerMortality Player3Prefab;
+    [SerializeField] Transform P3SpawnPoint;
+    [Header("Player 4")]
+    [SerializeField] PlayerMortality Player4Prefab;
+    [SerializeField] Transform P4SpawnPoint;
 
     [Header("Countdown settings")]
     [SerializeField] int countdownStartingNumber = 3;
@@ -118,8 +133,34 @@ public class GameSession : MonoBehaviour
     }
 
 
+    private void SpawnPlayers(int numPlayers)
+    {
+        switch(numPlayers)
+        {
+            case 2:
+                Instantiate(Player1Prefab, P1SpawnPoint.transform.position, Quaternion.identity);
+                Instantiate(Player2Prefab, P2SpawnPoint.transform.position, Quaternion.identity);
+                break;
+            case 3:
+                Instantiate(Player1Prefab, P1SpawnPoint.transform.position, Quaternion.identity);
+                Instantiate(Player2Prefab, P2SpawnPoint.transform.position, Quaternion.identity);
+                Instantiate(Player3Prefab, P3SpawnPoint.transform.position, Quaternion.identity);
+                break;
+            case 4:
+                Instantiate(Player1Prefab, P1SpawnPoint.transform.position, Quaternion.identity);
+                Instantiate(Player2Prefab, P2SpawnPoint.transform.position, Quaternion.identity);
+                Instantiate(Player3Prefab, P3SpawnPoint.transform.position, Quaternion.identity);
+                Instantiate(Player4Prefab, P4SpawnPoint.transform.position, Quaternion.identity);
+                break;
+            default:
+                Instantiate(Player1Prefab, P1SpawnPoint.transform.position, Quaternion.identity);
+                break;
+        }
+    }
+
     private void Awake()//singleton for gamesession
-    {        
+    {
+        SpawnPlayers(numPlayers);
         int numGameSessions = FindObjectsOfType<GameSession>().Length;
         if (numGameSessions > 1) //restart level
         {           
@@ -130,8 +171,7 @@ public class GameSession : MonoBehaviour
         {
             Debug.Log("create new game session");//when 1st time startup
             DontDestroyOnLoad(gameObject);
-        }
-        
+        }       
     }
 
 
@@ -162,6 +202,49 @@ public class GameSession : MonoBehaviour
         StartCoroutine(ResetLevelCoroutine());
     }
 
+    public int LevelRandomizer()
+    {
+        int lastLevelIndex = SceneManager.sceneCountInBuildSettings;
+        int nextLevelIndex;
+        try
+        {
+            do
+            {
+                nextLevelIndex = UnityEngine.Random.Range(0, lastLevelIndex);
+            } while (nextLevelIndex == SceneManager.GetActiveScene().buildIndex);
+        }
+        catch (NullReferenceException error)
+        {
+            Debug.Log(error.Message);
+            nextLevelIndex = 0;
+        }
+        return nextLevelIndex;
+    }
+
+    IEnumerator LoadNextLevelCoroutine()
+    {
+        gameObject.transform.GetChild(0).GetChild(5).gameObject.GetComponent<TextMeshProUGUI>().text =
+            FindObjectOfType<PlayerWins>().name + " wins round " + numRounds;
+        gameObject.transform.GetChild(0).GetChild(5).gameObject.SetActive(true);
+        Debug.Log("proceed to next level");
+        //int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+
+
+        yield return new WaitForSeconds(levelResetDelay);
+        //start countdown timer for next round
+        StartCoroutine(StartCountdownTimer(countdownStartingNumber, countdownDuration));
+        gameObject.transform.GetChild(0).GetChild(5).gameObject.SetActive(false);
+        //reset the game settings for next round
+        ResetGameRoundSettings();
+        SceneManager.LoadScene(1);
+        //start countdown timer for next round
+        //StartCoroutine(StartCountdownTimer(countdownStartingNumber, countdownDuration));
+    }
+
+    public void LoadNextLevel()
+    {
+        StartCoroutine(LoadNextLevelCoroutine());
+    }
     IEnumerator ResetLevelCoroutine()//edit
     {
         gameObject.transform.GetChild(0).GetChild(5).gameObject.GetComponent<TextMeshProUGUI>().text = 
@@ -201,6 +284,22 @@ public class GameSession : MonoBehaviour
         yield return new WaitForSeconds(gameOverDelay);
         //reset all collectibles
         FindObjectOfType<ScenePersist>().ResetScenePersist();
+        //SceneManager.LoadScene(0);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        Destroy(gameObject);
+    }
+
+    IEnumerator TransitionToGameOverCoroutine() //game over, display stats
+    {
+        //yield return new WaitForSeconds(levelResetDelay);
+        Debug.Log("game over");
+        gameObject.transform.GetChild(0).GetChild(4).gameObject.SetActive(true);//display game over text
+        gameObject.transform.GetChild(0).GetChild(5).gameObject.GetComponent<TextMeshProUGUI>().text = "Winner: " +
+            FindObjectOfType<PlayerWins>().name;
+        gameObject.transform.GetChild(0).GetChild(5).gameObject.SetActive(true);
+        yield return new WaitForSeconds(gameOverDelay);
+        //reset all collectibles
+        FindObjectOfType<ScenePersist>().ResetScenePersist();
         SceneManager.LoadScene(0);
         Destroy(gameObject);
     }
@@ -211,6 +310,7 @@ public class GameSession : MonoBehaviour
         if (FindObjectOfType<PlayerWins>().playerWins1Round() == maxWins)
             ResetGame();
         else
+            //LoadNextLevel();
             ResetLevel();
     }
 }
