@@ -18,6 +18,7 @@ public class PlayerMortality : MonoBehaviour
     [SerializeField] private float controlDisablePeriod = 3f;
     [SerializeField] private float knockBackForce = 20f;
 
+    
     [Header("Death and dismemberment")]
     [SerializeField] List<GameObject> bodyPartsList;
     [SerializeField] float yeetForce = 20f;
@@ -36,7 +37,8 @@ public class PlayerMortality : MonoBehaviour
     private float labelFontSize = 10f;//label font size
     private Color labelColor;
 
-
+    //death zone 
+    Coroutine deathZoneDamagePlayerCoroutine;
 
     private void Awake()
     {
@@ -228,11 +230,39 @@ public class PlayerMortality : MonoBehaviour
 
     //        MinusHp(1);
     //        //Die();
-            
+
     //        //FindObjectOfType<GameSession>().MinusLife();
     //        //FindObjectOfType<PlayerStats>().resetWeaponAndAmmo();
     //    }
     //}
+    IEnumerator PeriodicallyDamagePlayer(float interval, int damage)
+    {
+        while (true)
+        {
+            MinusHp(damage);
+            yield return new WaitForSeconds(interval);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)//player enter death zone
+    {
+        if (collision.gameObject.tag.Equals(gameObjectTag.Hazard.ToString()) && deathZoneDamagePlayerCoroutine == null)
+        {
+            deathZoneDamagePlayerCoroutine = StartCoroutine(PeriodicallyDamagePlayer(
+                collision.gameObject.GetComponent<DeathZone>().damageInterval,
+                collision.gameObject.GetComponent<DeathZone>().damage
+                ));
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)//player exit death zone
+    {
+        if (collision.gameObject.tag.Equals(gameObjectTag.Hazard.ToString()) && deathZoneDamagePlayerCoroutine != null)
+        {
+            StopCoroutine(deathZoneDamagePlayerCoroutine);
+            deathZoneDamagePlayerCoroutine = null;
+        }
+    }
 
     private IEnumerator toggleInjuredSprite()//color when got injured/shot
     {

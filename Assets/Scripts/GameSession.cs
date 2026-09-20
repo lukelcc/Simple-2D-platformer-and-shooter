@@ -32,8 +32,17 @@ public class GameSession : MonoBehaviour
     [SerializeField] int countdownStartingNumber = 3;
     [SerializeField] public float countdownDuration = 3f;
     [SerializeField] public float playerLabelDuration = 4f;
-    [SerializeField] TextMeshProUGUI countdownTimerText;
-    
+    [SerializeField] float startTextDuration = 1f;
+    [SerializeField] TextMeshProUGUI countDownTimerText;
+
+    [Header("Sudden death UI")]
+    [SerializeField] TextMeshProUGUI suddenDeathTimerText;
+    [SerializeField] TextMeshProUGUI suddenDeathText;
+    [SerializeField] public float suddenDeathTextDuration = 2f;
+    [SerializeField] public int FirstWarningToSuddenDeathTime = 5;
+    [SerializeField] public int SecondWarningToSuddenDeathTime = 3;
+
+
     int numRounds = 0;//edit
     private bool firstWeaponAlreadySpawned = false;
     private bool firstItemAlreadySpawned = false;
@@ -74,8 +83,38 @@ public class GameSession : MonoBehaviour
             return true;
     }
 
+    public void initializedSuddenDeathTimer()
+    {
+        suddenDeathText.gameObject.SetActive(false);
+        suddenDeathTimerText.text = FindObjectOfType<DeathZone>().countDownTimer.ToString();
+        suddenDeathTimerText.color = Color.white;
+    }
+
+    public void updateSuddenDeathTimer(int timeLeft)
+    {       
+        suddenDeathTimerText.text = timeLeft.ToString();
+        if (timeLeft <= FirstWarningToSuddenDeathTime && timeLeft > SecondWarningToSuddenDeathTime)
+            suddenDeathTimerText.color = Color.yellow;
+        else if (timeLeft <= SecondWarningToSuddenDeathTime)
+            suddenDeathTimerText.color = Color.red;
+    }
+
+    public void displaySuddenDeathText()
+    {       
+        StartCoroutine(toggleSuddenDeathUI());
+    }
+
+    IEnumerator toggleSuddenDeathUI()
+    {
+        suddenDeathTimerText.text = "SUDDEN DEATH";
+        suddenDeathText.gameObject.SetActive(true);
+        yield return new WaitForSeconds(suddenDeathTextDuration);
+        suddenDeathText.gameObject.SetActive(false);
+    }
+
     private void Start()
     {
+        initializedSuddenDeathTimer();
         StartCoroutine(StartCountdownTimer(countdownStartingNumber, countdownDuration));
     }
 
@@ -83,18 +122,19 @@ public class GameSession : MonoBehaviour
     {
         Debug.Log("Start countdown:");
         //FreezeAllPlayers();
-        countdownTimerText.gameObject.SetActive(true);
+        countDownTimerText.gameObject.SetActive(true);
         float interval = countdownDuration / countdownStartingNumber;
         for(int number = countdownStartingNumber; number >= 1; number--)
         {
-            countdownTimerText.text = number.ToString();
+            countDownTimerText.text = number.ToString();
             yield return new WaitForSeconds(interval);
         }
-        countdownTimerText.text = "FIGHT!";
+        countDownTimerText.text = "FIGHT!";
         //UnfreezeAllPlayers();
         Debug.Log("end countdown");
-        yield return new WaitForSeconds(1f);
-        countdownTimerText.gameObject.SetActive(false);
+        yield return new WaitForSeconds(startTextDuration);
+        countDownTimerText.gameObject.SetActive(false);
+        //start sudden death countdown timer
         //DestroyPlayerLabel();
     }
 
