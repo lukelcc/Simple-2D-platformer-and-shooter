@@ -20,7 +20,8 @@ public class PlayerAim : MonoBehaviour
 
     //crosshair within camera 
     [SerializeField] private Camera mainCamera;
-    [SerializeField] private float edgePadding = 1f;
+    [SerializeField] private float topBottomEdgePadding = 1f;
+    [SerializeField] private float sideEdgePadding = 1f;
     //private bool isAimStickUsed = false;
 
     //controller aim
@@ -50,8 +51,8 @@ public class PlayerAim : MonoBehaviour
 
         Vector3 camPos = mainCamera.transform.position;
 
-        worldPos.x = Mathf.Clamp(worldPos.x, camPos.x - camWidth + edgePadding, camPos.x + camWidth - edgePadding);
-        worldPos.y = Mathf.Clamp(worldPos.y, camPos.y - camHeight + edgePadding, camPos.y + camHeight - edgePadding);
+        worldPos.x = Mathf.Clamp(worldPos.x, camPos.x - camWidth + sideEdgePadding, camPos.x + camWidth - sideEdgePadding);
+        worldPos.y = Mathf.Clamp(worldPos.y, camPos.y - camHeight + topBottomEdgePadding, camPos.y + camHeight - topBottomEdgePadding);
         return worldPos;
     }
 
@@ -67,10 +68,10 @@ public class PlayerAim : MonoBehaviour
 
         Vector3 camPos = mainCamera.transform.position;
 
-        float minX = camPos.x - camWidth + edgePadding;
-        float maxX = camPos.x + camWidth - edgePadding;
-        float minY = camPos.y - camHeight + edgePadding;
-        float maxY = camPos.y + camHeight - edgePadding;
+        float minX = camPos.x - camWidth + sideEdgePadding;
+        float maxX = camPos.x + camWidth - sideEdgePadding;
+        float minY = camPos.y - camHeight + topBottomEdgePadding;
+        float maxY = camPos.y + camHeight - topBottomEdgePadding;
 
         Vector3 dir = target - origin;
 

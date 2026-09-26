@@ -235,12 +235,12 @@ public class PlayerMortality : MonoBehaviour
     //        //FindObjectOfType<PlayerStats>().resetWeaponAndAmmo();
     //    }
     //}
-    IEnumerator PeriodicallyDamagePlayer(float interval, int damage)
+    IEnumerator PeriodicallyDamagePlayer()
     {
         while (true)
         {
-            MinusHp(damage);
-            yield return new WaitForSeconds(interval);
+            MinusHp(FindObjectOfType<DeathZoneTilemap>().damage);
+            yield return new WaitForSeconds(FindObjectOfType<DeathZoneTilemap>().damageInterval);
         }
     }
 
@@ -248,10 +248,7 @@ public class PlayerMortality : MonoBehaviour
     {
         if (collision.gameObject.tag.Equals(gameObjectTag.Hazard.ToString()) && deathZoneDamagePlayerCoroutine == null)
         {
-            deathZoneDamagePlayerCoroutine = StartCoroutine(PeriodicallyDamagePlayer(
-                collision.gameObject.GetComponent<DeathZone>().damageInterval,
-                collision.gameObject.GetComponent<DeathZone>().damage
-                ));
+            deathZoneDamagePlayerCoroutine = StartCoroutine(PeriodicallyDamagePlayer());
         }
     }
 

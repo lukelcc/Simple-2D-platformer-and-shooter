@@ -86,13 +86,14 @@ public class GameSession : MonoBehaviour
     public void initializedSuddenDeathTimer()
     {
         suddenDeathText.gameObject.SetActive(false);
-        suddenDeathTimerText.text = FindObjectOfType<DeathZone>().countDownTimer.ToString();
+        suddenDeathTimerText.text = FindObjectOfType<DeathZoneTilemap>().countDownTimer.ToString();
         suddenDeathTimerText.color = Color.white;
     }
 
     public void updateSuddenDeathTimer(int timeLeft)
     {       
         suddenDeathTimerText.text = timeLeft.ToString();
+
         if (timeLeft <= FirstWarningToSuddenDeathTime && timeLeft > SecondWarningToSuddenDeathTime)
             suddenDeathTimerText.color = Color.yellow;
         else if (timeLeft <= SecondWarningToSuddenDeathTime)
@@ -114,7 +115,7 @@ public class GameSession : MonoBehaviour
 
     private void Start()
     {
-        initializedSuddenDeathTimer();
+        //initializedSuddenDeathTimer();
         StartCoroutine(StartCountdownTimer(countdownStartingNumber, countdownDuration));
     }
 
