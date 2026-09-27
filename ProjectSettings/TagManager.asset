@@ -50,6 +50,9 @@ TagManager:
   - name: Background
     uniqueID: 1368018391
     locked: 0
+  - name: Hazard
+    uniqueID: 638964857
+    locked: 0
   - name: Water
     uniqueID: 1296203779
     locked: 0
@@ -61,9 +64,6 @@ TagManager:
     locked: 0
   - name: Platforms
     uniqueID: 1837495067
-    locked: 0
-  - name: Hazard
-    uniqueID: 638964857
     locked: 0
   - name: Enemy
     uniqueID: 3330317391
